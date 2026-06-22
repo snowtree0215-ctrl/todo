@@ -772,6 +772,124 @@
       .sidebar.open { transform: translateX(0); box-shadow: 4px 0 20px rgba(0,0,0,0.15); }
       .main-content { margin-left: 0; padding: 72px 16px 24px; }
     }
+
+
+    /* ===================================================
+       바이브코팅 개발 공부하기 페이지
+       =================================================== */
+#vibeCodingPage{--bg-main:#fafafa;--bg-card:#fff;--bg-hover:#f5f5f5;--text-primary:#1a1a1a;--text-secondary:#666;--border-color:#e0e0e0;--primary-yellow:#ffde59;--button-radius:8px;}
+#vibeCodingPage *,#vibeCodingPage *::before,#vibeCodingPage *::after{box-sizing:border-box;}
+#vibeCodingPage{font-family:"Noto Sans KR",sans-serif;background:var(--bg-main);color:var(--text-primary);line-height:1.6;font-size:14px;margin:0;padding:0;}
+#vibeCodingPage #dn{max-width:860px;margin:0 auto;padding:24px 20px 80px;}
+#vibeCodingPage h2{font-size:22px;font-weight:700;margin:0 0 16px;}
+/* ── 전체 진도 바 ── */
+#vibeCodingPage .prog-label{font-size:12px;color:var(--text-secondary);margin-bottom:6px;display:flex;justify-content:space-between;}
+#vibeCodingPage .prog-bar{height:4px;background:var(--border-color);border-radius:2px;overflow:hidden;margin-bottom:6px;}
+#vibeCodingPage .prog-fill{height:100%;background:var(--primary-yellow);border-radius:2px;transition:width .4s;}
+/* ── 퀴즈 진도 미니 바 ── */
+#vibeCodingPage .quiz-prog-row{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--text-secondary);margin-bottom:16px;}
+#vibeCodingPage .quiz-prog-track{flex:1;height:6px;background:#f5f5f5;border-radius:3px;overflow:hidden;}
+#vibeCodingPage .quiz-prog-fill{height:100%;border-radius:3px;background:#5b4fd4;transition:width .4s;}
+#vibeCodingPage .quiz-prog-count{white-space:nowrap;}
+/* ── 상단 네비 영역 ── */
+#vibeCodingPage .top-nav{display:flex;flex-direction:column;gap:0;margin-bottom:4px;}
+/* 특수 버튼 줄 (대시보드·퀴즈·용어사전) */
+#vibeCodingPage .special-nav{display:flex;gap:8px;margin-bottom:0;padding-bottom:8px;}
+#vibeCodingPage .special-btn{background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:7px 14px;font-size:13px;font-weight:600;cursor:pointer;color:var(--text-secondary);font-family:inherit;transition:all 0.15s;white-space:nowrap;}
+#vibeCodingPage .special-btn:hover{background:var(--bg-hover);border-color:#bbb;color:var(--text-primary);}
+#vibeCodingPage .special-btn.active{background:#1a1a1a;color:#fff;border-color:#1a1a1a;}
+/* 섹션 탭 줄 */
+#vibeCodingPage .tab-nav{display:flex;gap:0;border-bottom:2px solid var(--border-color);overflow-x:auto;white-space:nowrap;margin-bottom:24px;}
+#vibeCodingPage .tab-btn{background:transparent;border:none;padding:10px 18px;font-size:13px;font-weight:500;cursor:pointer;color:var(--text-secondary);border-bottom:3px solid transparent;margin-bottom:-2px;font-family:inherit;transition:all 0.2s;}
+#vibeCodingPage .tab-btn:hover{color:var(--text-primary);background:var(--bg-hover);}
+#vibeCodingPage .tab-btn.active{color:var(--text-primary);border-bottom-color:var(--primary-yellow);}
+/* ── 페이지 전환 ── */
+#vibeCodingPage .pane{display:none;}
+#vibeCodingPage .pane.active{display:block;}
+/* ── 공통 카드·타이포 ── */
+#vibeCodingPage .card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:12px;}
+#vibeCodingPage .ch-header{margin-bottom:1.25rem;padding-bottom:10px;border-bottom:1px solid var(--border-color);margin-top:1.5rem;}
+#vibeCodingPage .ch-header:first-child{margin-top:0;}
+#vibeCodingPage .ch-num{font-size:11px;color:var(--text-secondary);font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+#vibeCodingPage .ch-title{font-size:20px;font-weight:700;line-height:1.3;}
+#vibeCodingPage .ch-desc{font-size:13px;color:var(--text-secondary);margin-top:4px;line-height:1.6;}
+#vibeCodingPage .card-head{display:flex;align-items:center;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+#vibeCodingPage .card-title{font-size:14px;font-weight:700;}
+#vibeCodingPage .card-body{font-size:13.5px;color:var(--text-secondary);line-height:1.8;}
+#vibeCodingPage .card-body strong{color:var(--text-primary);font-weight:600;}
+#vibeCodingPage .tag{font-size:11px;padding:2px 9px;border-radius:20px;font-weight:600;white-space:nowrap;}
+#vibeCodingPage .tag-purple{background:#eeedfc;color:#3a30a8;}
+#vibeCodingPage .tag-green{background:#e2f5ec;color:#0f6044;}
+#vibeCodingPage .tag-amber{background:#fdf0db;color:#7d4a08;}
+#vibeCodingPage .tag-red{background:#fdecea;color:#922620;}
+#vibeCodingPage .tag-blue{background:#e5f0fa;color:#144e82;}
+#vibeCodingPage .tag-yellow{background:#fff8d6;color:#7a5c00;}
+#vibeCodingPage code.c{font-family:"DM Mono",monospace;font-size:12px;background:#f5f5f5;padding:1px 6px;border-radius:4px;border:1px solid var(--border-color);}
+#vibeCodingPage .pre{font-family:"DM Mono",monospace;font-size:12.5px;background:#1e1d1a;color:#d4d0c4;padding:12px 16px;border-radius:8px;margin:10px 0;overflow-x:auto;line-height:1.7;white-space:pre;}
+#vibeCodingPage .pre .cm{color:#7a7868;}
+#vibeCodingPage .pre .kw{color:#c792ea;}
+#vibeCodingPage .pre .fn{color:#82aaff;}
+#vibeCodingPage .pre .str{color:#c3e88d;}
+#vibeCodingPage .pre .num{color:#f78c6c;}
+#vibeCodingPage .tip{border-left:3px solid #5b4fd4;background:#eeedfc;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:10px;font-size:13px;color:#3a30a8;line-height:1.65;}
+#vibeCodingPage .tip::before{content:"💡 ";}
+#vibeCodingPage .analogy{border-left:3px solid #1a8c60;background:#e2f5ec;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:10px;font-size:13px;color:#0f6044;line-height:1.65;}
+#vibeCodingPage .analogy::before{content:"🔍 비유: ";font-weight:600;}
+#vibeCodingPage .warn{border-left:3px solid #b06a10;background:#fdf0db;border-radius:0 6px 6px 0;padding:10px 14px;margin-top:10px;font-size:13px;color:#7d4a08;line-height:1.65;}
+#vibeCodingPage .warn::before{content:"⚠️ 주의: ";font-weight:600;}
+#vibeCodingPage .scene{background:#f5f5f5;border:1px solid var(--border-color);border-radius:6px;padding:10px 14px;margin:10px 0;font-size:13.5px;color:var(--text-secondary);line-height:1.75;}
+#vibeCodingPage .scene strong{color:var(--text-primary);}
+#vibeCodingPage .done-btn{display:flex;align-items:center;gap:8px;margin-top:1rem;margin-bottom:2rem;padding:.6rem 1.25rem;border-radius:8px;border:1.5px solid var(--border-color);background:var(--bg-card);font-size:13.5px;font-weight:500;color:var(--text-secondary);cursor:pointer;justify-content:center;width:100%;transition:all .15s;font-family:inherit;}
+#vibeCodingPage .done-btn:hover{border-color:#1a8c60;color:#1a8c60;background:#e2f5ec;}
+#vibeCodingPage .done-btn.checked{background:#e2f5ec;border-color:#1a8c60;color:#0f6044;}
+#vibeCodingPage .quiz-exp{margin-top:10px;font-size:13px;color:var(--text-secondary);background:#f7f6f2;border-radius:6px;padding:8px 12px;display:none;line-height:1.65;}
+#vibeCodingPage .quiz-exp.show{display:block;}
+#vibeCodingPage .opts{display:flex;flex-direction:column;gap:6px;}
+#vibeCodingPage .opt{background:#f7f6f2;border:1px solid var(--border-color);border-radius:6px;padding:8px 12px;font-size:13px;cursor:pointer;transition:all .12s;color:var(--text-secondary);text-align:left;font-family:inherit;}
+#vibeCodingPage .opt:hover:not(:disabled){border-color:#5b4fd4;color:var(--text-primary);}
+#vibeCodingPage .opt.correct{background:#e2f5ec;border-color:#1a8c60;color:#0f6044;font-weight:600;}
+#vibeCodingPage .opt.wrong{background:#fdecea;border-color:#c0332a;color:#922620;}
+#vibeCodingPage .opt:disabled{cursor:default;}
+#vibeCodingPage .q-text{font-size:13.5px;font-weight:600;margin-bottom:10px;line-height:1.5;}
+#vibeCodingPage .sec-label{font-size:13px;font-weight:700;margin:20px 0 10px;padding:8px 12px;background:#f0f0f0;border-radius:6px;}
+/* ── 대시보드 ── */
+#vibeCodingPage .dash-big{background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px;}
+#vibeCodingPage .dash-big-title{font-size:14px;font-weight:700;margin-bottom:10px;}
+#vibeCodingPage .big-progress{display:flex;flex-direction:column;gap:8px;}
+#vibeCodingPage .big-p-row{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);}
+#vibeCodingPage .big-p-label{width:90px;min-width:90px;}
+#vibeCodingPage .big-p-track{flex:1;height:8px;background:#f5f5f5;border-radius:4px;overflow:hidden;}
+#vibeCodingPage .big-p-fill{height:100%;border-radius:4px;background:#1a8c60;transition:width .4s;}
+#vibeCodingPage .big-p-count{font-size:12px;width:32px;text-align:right;}
+#vibeCodingPage .dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-bottom:12px;}
+#vibeCodingPage .dash-card{background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:4px;}
+#vibeCodingPage .dash-card.done{border-color:#1a8c60;background:#e2f5ec;}
+#vibeCodingPage .dash-card-num{font-size:10px;font-weight:700;color:#999;letter-spacing:.05em;}
+#vibeCodingPage .dash-card-title{font-size:12.5px;font-weight:600;line-height:1.4;}
+#vibeCodingPage .dash-card-status{font-size:11.5px;margin-top:2px;}
+#vibeCodingPage .dash-card.done .dash-card-status{color:#0f6044;}
+#vibeCodingPage .dash-card:not(.done) .dash-card-status{color:#999;}
+#vibeCodingPage .dash-goto{margin-top:6px;font-size:11.5px;padding:4px 10px;border-radius:6px;border:1px solid var(--border-color);background:transparent;cursor:pointer;color:var(--text-secondary);font-family:inherit;}
+#vibeCodingPage .dash-goto:hover{background:#f5f5f5;}
+#vibeCodingPage .dash-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;}
+/* 대시보드 내 퀴즈 진도 블록 */
+#vibeCodingPage .quiz-dash-block{background:var(--bg-card);border:1px solid var(--border-color);border-radius:10px;padding:14px 16px;margin-bottom:14px;}
+#vibeCodingPage .quiz-dash-row{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--text-secondary);margin-bottom:6px;}
+#vibeCodingPage .quiz-dash-row:last-child{margin-bottom:0;}
+#vibeCodingPage .quiz-dash-label{width:90px;min-width:90px;}
+#vibeCodingPage .quiz-dash-track{flex:1;height:8px;background:#f5f5f5;border-radius:4px;overflow:hidden;}
+#vibeCodingPage .quiz-dash-fill{height:100%;border-radius:4px;background:#5b4fd4;transition:width .4s;}
+#vibeCodingPage .quiz-dash-count{font-size:12px;width:40px;text-align:right;white-space:nowrap;}
+@media (max-width:600px){#vibeCodingPage #dn{padding:16px 12px 80px;}
+#vibeCodingPage .special-nav{flex-wrap:wrap;}}
+
+#vibeCodingPage #dn{background:transparent;}
+#vibeCodingPage .special-nav button,
+#vibeCodingPage .tab-nav button,
+#vibeCodingPage .done-btn,
+#vibeCodingPage .opt,
+#vibeCodingPage .dash-goto{font-family:var(--font-main);}
+
   </style>
 </head>
 <body>
@@ -806,6 +924,7 @@
       <nav class="sidebar-nav">
         <button class="nav-item active" onclick="showPage('homePage', this, '🏠 홈')">🏠 홈</button>
         <button class="nav-item" onclick="showPage('taskPage', this, '📝 할일 목록')">📝 할일 목록</button>
+        <button class="nav-item" onclick="showPage('vibeCodingPage', this, '📓 바이브코팅 개발 공부하기')">📓 바이브코팅 개발 공부하기</button>
         <button class="nav-item" onclick="showPage('settingsPage', this, '⚙️ 설정')">⚙️ 설정</button>
       </nav>
 
@@ -920,6 +1039,1021 @@
           </section>
 
         </div>
+      </div>
+
+
+      <!-- 바이브코팅 개발 공부하기 페이지 -->
+      <div id="vibeCodingPage" class="page">
+        <div class="page-header">
+          <h2>📓 바이브코팅 개발 공부하기</h2>
+          <p>초보자도 이해하기 쉽게 정리한 웹앱 개발 학습 노트입니다.</p>
+        </div>
+        <div id="dn">
+
+<!-- 전체 진도 바 -->
+<div class="prog-label"><span>전체 학습 진도</span><span id="prog-label">0 / 0</span></div>
+<div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+<!-- 퀴즈 진도 미니 바 -->
+<div class="quiz-prog-row">
+<span style="white-space:nowrap;font-size:12px;">🎯 퀴즈</span>
+<div class="quiz-prog-track"><div class="quiz-prog-fill" id="quiz-prog-fill" style="width:0%"></div></div>
+<span class="quiz-prog-count" id="quiz-prog-label">0 / 20</span>
+</div>
+<!-- 상단 특수 네비 (대시보드·퀴즈·용어사전) -->
+<div class="special-nav">
+<button class="special-btn active" data-key="dash" onclick="sw('dash')">📊 대시보드</button>
+<button class="special-btn" data-key="quiz" onclick="sw('quiz')">🎯 퀴즈·실습</button>
+<button class="special-btn" data-key="terms" onclick="sw('terms')">📖 용어 사전</button>
+</div>
+<!-- 섹션 탭 줄 -->
+<div class="tab-nav">
+<button class="tab-btn" data-tab="basic" onclick="sw('basic')">📚 기초편</button>
+<button class="tab-btn" data-tab="prac" onclick="sw('prac')">⚡ 실전편</button>
+<button class="tab-btn" data-tab="adv" onclick="sw('adv')">🧠 심화편</button>
+<button class="tab-btn" data-tab="git" onclick="sw('git')">🌿 Git 실전</button>
+<button class="tab-btn" data-tab="env" onclick="sw('env')">💻 개발 환경</button>
+</div>
+<!-- ── 대시보드 ── -->
+<div class="pane active" data-tab="dash">
+<div class="dash-big">
+<div class="dash-big-title">📈 섹션별 학습 진도</div>
+<div class="big-progress">
+<div class="big-p-row"><span class="big-p-label">기초편</span><div class="big-p-track"><div class="big-p-fill" id="fill-basic" style="width:0%"></div></div><span class="big-p-count" id="cnt-basic">0/2</span></div>
+<div class="big-p-row"><span class="big-p-label">실전편</span><div class="big-p-track"><div class="big-p-fill" id="fill-prac" style="width:0%"></div></div><span class="big-p-count" id="cnt-prac">0/4</span></div>
+<div class="big-p-row"><span class="big-p-label">심화편</span><div class="big-p-track"><div class="big-p-fill" id="fill-adv" style="width:0%"></div></div><span class="big-p-count" id="cnt-adv">0/3</span></div>
+<div class="big-p-row"><span class="big-p-label">Git 실전</span><div class="big-p-track"><div class="big-p-fill" id="fill-git" style="width:0%"></div></div><span class="big-p-count" id="cnt-git">0/2</span></div>
+<div class="big-p-row"><span class="big-p-label">개발 환경</span><div class="big-p-track"><div class="big-p-fill" id="fill-env" style="width:0%"></div></div><span class="big-p-count" id="cnt-env">0/2</span></div>
+</div>
+</div>
+<div class="quiz-dash-block">
+<div class="dash-big-title">🎯 퀴즈·실습 진도</div>
+<div class="quiz-dash-row"><span class="quiz-dash-label">개념 퀴즈</span><div class="quiz-dash-track"><div class="quiz-dash-fill" id="dash-quiz-fill" style="width:0%"></div></div><span class="quiz-dash-count" id="dash-quiz-cnt">0/10</span></div>
+<div class="quiz-dash-row" style="margin-top:6px;"><span class="quiz-dash-label">실습 과제</span><div class="quiz-dash-track"><div class="quiz-dash-fill" id="dash-prac-fill" style="background:#1a8c60"></div></div><span class="quiz-dash-count" id="dash-prac-cnt">0/5</span></div>
+</div>
+<div class="dash-grid" id="dash-grid"></div>
+<div class="dash-actions">
+<button onclick="resetAll()" style="padding:8px 14px;border-radius:6px;border:1px solid var(--border-color);background:var(--bg-card);font-size:13px;color:var(--text-secondary);cursor:pointer;font-family:inherit;">진도 초기화</button>
+<button onclick="markAllDone()" style="padding:8px 14px;border-radius:6px;border:1px solid #1a8c60;background:#e2f5ec;font-size:13px;color:#0f6044;cursor:pointer;font-family:inherit;">전체 완료 표시</button>
+</div>
+</div>
+<!-- basic -->
+<div class="pane" data-tab="basic">
+<div class="ch-header">
+<div class="ch-num">Chapter 1 · 기초편</div>
+<div class="ch-title">웹 앱은 어떻게 생겼나요?</div>
+<div class="ch-desc">웹 앱을 만들기 전에 전체 구조를 이해해두면 AI에게 요청하고 설명하기가 훨씬 쉬워져요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">프론트엔드 (화면)</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body">사용자 눈에 보이는 모든 것이에요. 버튼, 텍스트, 이미지, 입력창. HTML/CSS/JavaScript로 만들어지고 사용자의 <strong>브라우저</strong>에서 실행돼요.</p>
+<div class="analogy">식당의 홀 — 손님이 직접 보고 앉고 메뉴를 고르는 공간이에요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">백엔드 (서버)</span><span class="tag tag-green">알면 좋음</span></div>
+<p class="card-body">사용자 눈에 안 보이지만 실제 계산·저장·로그인 처리가 일어나는 곳이에요. Python, Node.js 같은 언어로 만들고 서버 컴퓨터에서 실행돼요.</p>
+<div class="analogy">식당의 주방 — 손님은 못 들어가지만 음식이 만들어지는 곳이에요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">데이터베이스 (DB)</span><span class="tag tag-green">알면 좋음</span></div>
+<p class="card-body">데이터를 저장하는 창고예요. 회원 정보, 게시글, 주문 내역 등이 여기에 저장돼요. 간단한 앱은 브라우저의 localStorage나 Google Sheets를 대용으로 쓰기도 해요.</p>
+<div class="analogy">식당의 냉장고 — 재료(데이터)를 보관해두고 필요할 때 꺼내요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">클라이언트 vs 서버</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body"><strong>클라이언트</strong>는 요청하는 쪽(브라우저, 앱)이고, <strong>서버</strong>는 응답하는 쪽이에요. "클라이언트 사이드 처리" = 서버 없이 브라우저에서만 실행된다는 뜻이에요.</p>
+<div class="tip">AI가 "클라이언트에서 처리해요" 하면 = 내 브라우저에서만 동작하는 코드. 서버 비용이 안 들어요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">정적 vs 동적 웹사이트</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body"><strong>정적(Static)</strong>: 내용이 고정. 포트폴리오, 소개 페이지, 단순 웹앱. GitHub Pages로 무료 배포 가능.<br/>
+<strong>동적(Dynamic)</strong>: 로그인, 실시간 데이터, 개인화 콘텐츠. 서버가 필요해요.</p>
+<div class="tip">처음 만드는 앱은 정적으로도 충분해요. localStorage로 데이터를 저장하면 서버 없이 개인 앱처럼 쓸 수 있어요.</div></div>
+<button class="done-btn" id="done1" onclick="markDone(1)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 2 · 기초편</div>
+<div class="ch-title">개발에서 자주 쓰는 언어들</div>
+<div class="ch-desc">언어 이름만 들어도 막막하죠. 각각 어떤 역할인지만 알면 충분해요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">HTML — 뼈대</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body">"여기 제목", "여기 버튼", "여기 이미지" 구조를 잡아요. 꺾쇠(&lt; &gt;)로 감싸는 <strong>태그</strong>를 씁니다.</p>
+<div class="pre"><span class="cm">&lt;!-- 주석: 이런 식으로 생겼어요 --&gt;</span>
+&lt;<span class="kw">h1</span>&gt;안녕하세요&lt;/<span class="kw">h1</span>&gt;
+&lt;<span class="kw">button</span>&gt;클릭하기&lt;/<span class="kw">button</span>&gt;</div></div>
+<div class="card"><div class="card-head"><span class="card-title">CSS — 디자인</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body">색, 폰트, 크기, 여백, 버튼 모양을 정해요. HTML이 뼈대라면 CSS는 옷이에요.</p>
+<div class="pre"><span class="kw">button</span> {
+  <span class="fn">background-color</span>: <span class="str">blue</span>;
+  <span class="fn">border-radius</span>: <span class="num">8px</span>;
+}</div></div>
+<div class="card"><div class="card-head"><span class="card-title">JavaScript (JS) — 동작</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body">버튼 클릭 반응, 데이터 계산, 서버 통신이 JS로 이루어져요. 세 언어 중 가장 복잡하지만 AI가 전부 써줘요.</p>
+<div class="tip">"JS", "자바스크립트", "스크립트"는 모두 같은 말이에요. Java와는 완전히 다른 언어예요 — 이름만 비슷해요!</div></div>
+<div class="card"><div class="card-head"><span class="card-title">Java vs JavaScript</span><span class="tag tag-red">완전히 다름</span></div>
+<p class="card-body">이름만 비슷하고 완전히 다른 언어예요. Java는 주로 기업용 백엔드나 안드로이드 앱에, JavaScript는 웹 프론트엔드에 써요.</p>
+<div class="tip">웹 개발 맥락에서 "스크립트", "JS" = JavaScript예요. Java를 쓸 일은 거의 없어요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">TypeScript (TS)</span><span class="tag tag-amber">나중에</span></div>
+<p class="card-body">JavaScript에 타입 체크 기능을 추가한 언어예요. AI가 TS로 코드를 쓰기도 해요. "JS랑 거의 같은데 더 엄격한 것"으로 이해하면 충분해요.</p>
+<div class="tip">AI가 <code class="c">.ts</code> 파일을 만들었다면 TypeScript예요. 당황하지 말아요 — JS처럼 쓰면 돼요.</div></div>
+<button class="done-btn" id="done2" onclick="markDone(2)">이 챕터 읽었어요 ✓</button>
+</div>
+<!-- prac -->
+<div class="pane" data-tab="prac">
+<div class="ch-header">
+<div class="ch-num">Chapter 3 · 실전편</div>
+<div class="ch-title">AI가 준 코드, 어떻게 읽나요?</div>
+<div class="ch-desc">직접 짤 줄 몰라도 구조를 눈으로 읽을 수 있으면 대화가 훨씬 쉬워져요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">함수 (function)</span><span class="tag tag-purple">핵심 개념</span></div>
+<p class="card-body">어떤 작업을 묶어서 이름을 붙인 것이에요. <code class="c">()</code>가 붙어 있으면 함수 호출이에요.</p>
+<div class="pre"><span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">return</span> <span class="str">"안녕, "</span> + name;
+}
+<span class="fn">greet</span>(<span class="str">"홍길동"</span>); <span class="cm">// → "안녕, 홍길동"</span></div>
+<div class="analogy">레시피 카드. 이름을 붙여두고 필요할 때마다 꺼내 써요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">변수 (variable)</span><span class="tag tag-purple">핵심 개념</span></div>
+<p class="card-body">값을 담아두는 이름표예요. <code class="c">const</code>는 변경 불가, <code class="c">let</code>은 변경 가능.</p>
+<div class="pre"><span class="kw">const</span> appName = <span class="str">"내 앱"</span>; <span class="cm">// 안 바뀜</span>
+<span class="kw">let</span> count = <span class="num">0</span>;           <span class="cm">// 바뀔 수 있음</span>
+count = count + <span class="num">1</span>;       <span class="cm">// 이제 1</span></div></div>
+<div class="card"><div class="card-head"><span class="card-title">조건문 (if)</span><span class="tag tag-purple">핵심 개념</span></div>
+<p class="card-body">"만약 ~이면 이렇게"를 표현해요. 거의 모든 코드에 등장해요.</p>
+<div class="pre"><span class="kw">if</span> (isLoggedIn) {
+  <span class="fn">showDashboard</span>();
+} <span class="kw">else</span> {
+  <span class="fn">showLoginPage</span>();
+}</div></div>
+<div class="card"><div class="card-head"><span class="card-title">화살표 함수 (Arrow Function)</span><span class="tag tag-green">자주 보임</span></div>
+<p class="card-body">함수를 짧게 쓰는 문법이에요. AI가 자주 씁니다.</p>
+<div class="pre"><span class="cm">// 일반 함수와 같은 동작이에요</span>
+<span class="kw">const</span> <span class="fn">add</span> = (a, b) =&gt; a + b;
+items.<span class="fn">map</span>(item =&gt; item.name)</div>
+<div class="tip"><code class="c">=&gt;</code> 가 보이면 "아, 함수구나"라고 인식하면 돼요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">반환(return) vs 출력(console.log)</span><span class="tag tag-green">코드 읽기 팁</span></div>
+<p class="card-body"><strong>return</strong>: 함수가 값을 돌려주는 것. 다른 코드에서 그 값을 쓸 수 있어요.<br/>
+<strong>console.log</strong>: 개발자 콘솔에 확인용으로 출력하는 것. 실제 앱 화면과는 무관해요.</p>
+<div class="tip">AI가 <code class="c">console.log</code>를 많이 쓴다면 디버깅용이에요. 배포 전에 지워도 되는 코드예요.</div></div>
+<button class="done-btn" id="done3" onclick="markDone(3)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 4 · 실전편</div>
+<div class="ch-title">에러 메시지 해석하기</div>
+<div class="ch-desc">빨간 글씨가 떠도 당황하지 말아요. 패턴만 알면 겁이 훨씬 덜 나요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">에러 메시지 구조</span><span class="tag tag-purple">핵심 패턴</span></div>
+<div class="scene"><strong>에러 종류</strong>: 뭐가 잘못됐는지 (예: <code class="c">TypeError</code>)<br/>
+<strong>에러 내용</strong>: 구체적으로 어떤 문제인지<br/>
+<strong>위치</strong>: 몇 번째 줄에서 났는지 (<code class="c">at line 23</code>)</div>
+<div class="tip">전부 이해 안 해도 돼요. 에러 메시지 <strong>전체를 복사</strong>해서 AI에게 주면 돼요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">자주 보는 에러 종류</span><span class="tag tag-amber">참고용</span></div>
+<p class="card-body">
+<code class="c">is not defined</code> → 없는 변수·함수를 썼어요<br/>
+<code class="c">Cannot read properties of undefined</code> → 값이 없는데 뭔가 꺼내려 했어요<br/>
+<code class="c">SyntaxError</code> → 괄호가 안 닫혔거나 오타<br/>
+<code class="c">404 Not Found</code> → 요청한 주소·파일이 없어요<br/>
+<code class="c">401 Unauthorized</code> → 로그인 필요 or 권한 없음<br/>
+<code class="c">500 Internal Server Error</code> → 서버 쪽 문제</p></div>
+<div class="card"><div class="card-head"><span class="card-title">콘솔(Console) 여는 법</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body"><strong>Windows/Linux</strong>: <code class="c">F12</code> → Console 탭<br/><strong>Mac</strong>: <code class="c">Cmd + Option + J</code></p>
+<div class="tip">앱이 이상하면 콘솔부터 열어요. 빨간 글씨 = 에러, 노란 글씨 = 경고예요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">"빌드 실패" vs "런타임 에러"</span><span class="tag tag-green">구분 팁</span></div>
+<p class="card-body"><strong>빌드 에러</strong>: 앱을 시작하기 전에 나는 에러. 터미널에 떠요.<br/>
+<strong>런타임 에러</strong>: 앱이 실행 중에 나는 에러. 콘솔에 떠요.</p></div>
+<button class="done-btn" id="done4" onclick="markDone(4)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 5 · 실전편</div>
+<div class="ch-title">파일 구조와 배포</div>
+<div class="ch-desc">프로젝트 파일 구조를 알면 AI가 뭘 만들고 있는지 훨씬 쉽게 파악돼요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">기본 웹앱 파일 구조</span><span class="tag tag-purple">꼭 알기</span></div>
+<div class="pre">my-app/
+├── index.html    <span class="cm"># 시작 페이지</span>
+├── style.css     <span class="cm"># 디자인</span>
+├── script.js     <span class="cm"># 기능</span>
+└── images/       <span class="cm"># 이미지 폴더</span></div>
+<div class="tip">단일 HTML 파일 앱은 CSS·JS를 HTML 안에 전부 넣기도 해요. 간단한 앱에 많이 쓰이는 방식이에요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">로컬 vs 배포</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body"><strong>로컬(local)</strong>: 내 컴퓨터에서만 돌아가요. 주소가 <code class="c">localhost:3000</code>처럼 생겼어요.<br/><br/>
+<strong>배포(deploy)</strong>: 인터넷 서버에 올려서 누구나 접속 가능. 실제 URL이 생겨요.</p>
+<div class="tip">"로컬에서는 되는데 배포 후에 안 돼요"는 매우 흔한 상황이에요. 환경이 달라서 생기는 문제예요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">무료 배포 도구</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body"><strong>GitHub Pages</strong>: HTML 파일 무료 배포. 정적 사이트에 딱이에요.<br/>
+<strong>Vercel / Netlify</strong>: React 같은 복잡한 앱도 무료 배포 가능.<br/>
+<strong>Replit</strong>: 코딩 + 배포를 한 곳에서.</p></div>
+<div class="card"><div class="card-head"><span class="card-title">Git과 GitHub</span><span class="tag tag-green">알면 좋음</span></div>
+<p class="card-body"><strong>Git</strong>: 코드 변경 내역을 저장하는 도구. 버전 관리.<br/><strong>GitHub</strong>: Git 코드를 인터넷에 올려두는 곳.</p>
+<div class="analogy">Git = 저장 버튼. GitHub = 클라우드. 언제든 이전 상태로 되돌릴 수 있어요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">환경변수 / API Key 보안</span><span class="tag tag-green">알면 좋음</span></div>
+<p class="card-body">API 키 같은 비밀 정보는 코드에 직접 넣으면 안 돼요. <code class="c">.env</code> 파일에 따로 보관해요.</p>
+<div class="warn">API 키를 코드에 넣고 GitHub에 올리면 누구나 볼 수 있어요. 키가 탈취당할 수 있어요.</div></div>
+<button class="done-btn" id="done5" onclick="markDone(5)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 6 · 실전편</div>
+<div class="ch-title">데이터가 어떻게 움직이나요?</div>
+<div class="ch-desc">"데이터를 어디서 가져오고, 어디에 저장하지?" 이 흐름을 알면 앱 전체 구조가 보여요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">localStorage — 서버 없이 데이터 저장</span><span class="tag tag-purple">핵심 개념</span></div>
+<p class="card-body">서버 없이 브라우저 자체에 데이터를 저장해요. 탭을 닫아도 데이터가 유지돼요. 단, 같은 기기·브라우저에서만 보여요.</p>
+<div class="pre"><span class="fn">localStorage</span>.<span class="fn">setItem</span>(<span class="str">'todos'</span>, <span class="fn">JSON.stringify</span>(list)); <span class="cm">// 저장</span>
+<span class="kw">const</span> saved = <span class="fn">JSON.parse</span>(<span class="fn">localStorage</span>.<span class="fn">getItem</span>(<span class="str">'todos'</span>)); <span class="cm">// 불러오기</span>
+<span class="fn">localStorage</span>.<span class="fn">removeItem</span>(<span class="str">'todos'</span>);                          <span class="cm">// 삭제</span></div>
+<div class="tip">간단한 할일 앱, 설정 저장, 메모 앱은 localStorage만으로 충분해요. 서버 없이 "앱처럼" 동작해요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">fetch / API 호출</span><span class="tag tag-purple">핵심 개념</span></div>
+<p class="card-body">외부 서버에 데이터를 요청하는 행위예요.</p>
+<div class="pre"><span class="kw">const</span> response = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'https://api.example.com'</span>);
+<span class="kw">const</span> data = <span class="kw">await</span> response.<span class="fn">json</span>();</div>
+<div class="scene"><strong>요청(Request)</strong>: "이 데이터 줘"<br/><strong>응답(Response)</strong>: 서버가 데이터를 돌려줌<br/><strong>JSON</strong>: 주고받는 데이터 형식</div></div>
+<div class="card"><div class="card-head"><span class="card-title">JSON 형식</span><span class="tag tag-purple">꼭 알기</span></div>
+<div class="pre">{
+  <span class="str">"name"</span>: <span class="str">"홍길동"</span>,
+  <span class="str">"skills"</span>: [<span class="str">"기획"</span>, <span class="str">"디자인"</span>]
+}
+<span class="cm">// data.name → "홍길동"</span>
+<span class="cm">// data.skills[0] → "기획"</span></div>
+<div class="tip"><code class="c">{ }</code>는 객체(하나의 덩어리), <code class="c">[ ]</code>는 배열(목록). 이 두 가지가 JSON의 전부예요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">동기 vs 비동기 / async·await</span><span class="tag tag-green">개념 정리</span></div>
+<p class="card-body">API 요청은 시간이 걸려서 <strong>비동기</strong>로 처리해요. <code class="c">await</code>을 붙이면 "이 작업 끝날 때까지 기다려"예요.</p>
+<div class="analogy">카페 진동벨. 커피 나올 때까지 기다리는 대신 자리에 앉아 다른 일 하다가 벨 울리면 가져오는 방식이에요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">데이터 저장 방식 비교</span><span class="tag tag-green">알면 유용</span></div>
+<div class="scene"><strong>localStorage</strong>: 브라우저에 저장. 서버 불필요. 같은 기기에서만 접근.<br/>
+<strong>Firebase / Supabase</strong>: 클라우드 DB. 여러 기기에서 동기화. 로그인 연동 가능.<br/>
+<strong>Google Sheets</strong>: 스프레드시트를 DB처럼 활용. 간단한 앱에 적합.</div></div>
+<button class="done-btn" id="done6" onclick="markDone(6)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 7 · 실전편</div>
+<div class="ch-title">AI에게 잘 요청하는 법</div>
+<div class="ch-desc">같은 요청도 어떻게 하느냐에 따라 결과가 크게 달라져요. 이 패턴들을 익히면 개발 속도가 눈에 띄게 빨라져요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">AI는 대화를 닫으면 기억을 잃어요</span><span class="tag tag-red">반드시 알기</span></div>
+<p class="card-body">AI는 대화창을 닫으면 이전 내용을 전혀 기억하지 못해요. 새 대화를 시작할 때는 항상 배경 설명부터 해줘야 해요.</p>
+<div class="scene">
+<strong>나쁜 예</strong>: "그거 고쳐줘" (뭐가 뭔지 모름)<br/><br/>
+<strong>좋은 예</strong>: "HTML+JS로 만든 할일 앱이야. 완료 버튼 누르면 취소선이 생겨야 하는데 아무 반응이 없어. 코드 보여줄게: [코드]"
+    </div>
+<div class="tip">새 대화 시작 시 항상 포함할 것: ① 앱이 어떤 앱인지 ② 어떤 기술로 만들었는지 ③ 지금 어떤 문제인지</div></div>
+<div class="card"><div class="card-head"><span class="card-title">에러는 메시지 전체를 그대로 주기</span><span class="tag tag-purple">핵심 습관</span></div>
+<div class="scene">
+<strong>나쁜 예</strong>: "에러 났어. 뭔가 undefined 어쩌구 하던데"<br/><br/>
+<strong>좋은 예</strong>: "이 에러 뜨는데:<br/>TypeError: Cannot read properties of undefined (reading 'map')<br/>at App.js:23:15"
+    </div>
+<div class="tip">에러 메시지 전체를 복사해서 AI에게 붙여넣으세요. 직접 해석하려고 하면 오히려 더 오래 걸려요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">원하는 결과를 구체적으로 묘사하기</span><span class="tag tag-purple">핵심 습관</span></div>
+<div class="scene">
+<strong>모호한 요청</strong>: "예쁘게 만들어줘"<br/><br/>
+<strong>좋은 요청</strong>: "배경은 어두운 남색, 카드는 흰색으로. 애플 홈페이지처럼 여백이 넉넉한 스타일"<br/><br/>
+<strong>또는</strong>: "노션처럼 심플하게, 장식 없이 텍스트 중심"
+    </div>
+<div class="tip">레퍼런스 사이트를 언급하는 게 가장 빠릅니다. "XXX 느낌으로", "YYY 스타일처럼"이 추상적 형용사보다 훨씬 정확해요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">한 번에 하나씩, 단계적으로 만들기</span><span class="tag tag-purple">핵심 습관</span></div>
+<div class="scene">
+      한 기능씩 → 직접 확인 → 다음 기능 순서가 가장 안정적이에요.<br/><br/>
+<strong>추천 흐름:</strong><br/>
+      1단계: "기본 레이아웃만 먼저 만들어줘" → 브라우저에서 확인<br/>
+      2단계: "할일 추가 기능 넣어줘" → 확인<br/>
+      3단계: "삭제 기능 추가해줘" → 확인
+    </div>
+<div class="tip">한 번에 너무 많은 걸 요청하면 AI가 중간에 실수해도 어디서 틀렸는지 찾기 어려워요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">이해 안 될 때 바로 물어보기</span><span class="tag tag-green">소통 팁</span></div>
+<p class="card-body">
+      "방금 말한 미들웨어가 뭐야?" — 모르는 용어 즉시 질문<br/>
+      "버튼 눌렀을 때 그 상자 같은 게 나오는 것 있잖아" — 정확한 이름 몰라도 OK<br/>
+      "더 쉽게 설명해줘" / "비유로 설명해줘" / "한 단계씩 설명해줘" — 이해도에 맞게 조절 요청
+    </p>
+<div class="tip">AI에게 "비전공자도 이해할 수 있게"라고 요청하면 설명 방식이 완전히 달라져요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">좋은 요청 템플릿</span><span class="tag tag-blue">복사해서 써요</span></div>
+<div class="scene">
+<strong>기능 추가 요청:</strong><br/>
+      "HTML+JS로 만든 [앱 종류] 앱이야. 지금 [현재 상태]인데, [원하는 기능]을 추가해줘. [특이사항 있으면]."<br/><br/>
+<strong>버그 수정 요청:</strong><br/>
+      "[어떤 동작을 했을 때] [어떤 문제가 생겨]. 에러 메시지: [전체 복사]. 관련 코드: [붙여넣기]"<br/><br/>
+<strong>디자인 변경 요청:</strong><br/>
+      "[어떤 요소를] [어떻게] 바꿔줘. [레퍼런스 사이트]처럼 [핵심 느낌]"
+    </div></div>
+<button class="done-btn" id="done7" onclick="markDone(7)">이 챕터 읽었어요 ✓</button>
+</div>
+<!-- adv -->
+<div class="pane" data-tab="adv">
+<div class="ch-header">
+<div class="ch-num">Chapter 8 · 심화편</div>
+<div class="ch-title">구조 관련 용어 심화</div>
+<div class="ch-desc">React를 쓰거나 AI가 설명할 때 자주 나오는 구조 단어들이에요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">컴포넌트 (Component)</span><span class="tag tag-purple">핵심 개념</span></div>
+<p class="card-body">화면을 이루는 독립적인 조각이에요. 헤더, 버튼, 카드 각각이 컴포넌트예요. 한 번 만들면 여러 곳에서 재사용 가능해요.</p>
+<div class="analogy">레고 블록. 블록 하나하나를 조립해서 전체 앱을 만들어요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">상태 (State)</span><span class="tag tag-purple">핵심 개념</span></div>
+<p class="card-body">앱이 지금 기억하는 값이에요. 상태가 바뀌면 화면이 자동으로 다시 그려져요(리렌더링).</p>
+<div class="analogy">신호등 색. 빨강→초록으로 바뀌면(상태 변화) 자동차가 반응(화면 변화)해요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">props (프롭스)</span><span class="tag tag-amber">React 용어</span></div>
+<p class="card-body">부모 컴포넌트가 자식에게 전달하는 설정값이에요.</p>
+<div class="pre">&lt;<span class="kw">Button</span> color=<span class="str">"blue"</span> text=<span class="str">"확인"</span> /&gt;</div></div>
+<div class="card"><div class="card-head"><span class="card-title">DOM</span><span class="tag tag-green">알면 좋음</span></div>
+<p class="card-body">브라우저가 HTML을 읽어서 만든 구조예요. JS는 DOM을 통해 화면 요소를 읽고 바꿔요.<br/>"DOM을 직접 조작한다" = JS로 HTML 요소를 직접 건드린다는 뜻이에요.</p></div>
+<div class="card"><div class="card-head"><span class="card-title">라이브러리 vs 프레임워크</span><span class="tag tag-green">개념 정리</span></div>
+<p class="card-body"><strong>라이브러리</strong>: 필요한 도구를 가져다 쓰는 것. 내가 주도권을 가져요. (React, Chart.js)<br/>
+<strong>프레임워크</strong>: 틀이 정해져 있고 그 안에서 코드를 채워요. (Next.js, Django)</p>
+<div class="analogy">라이브러리 = 마트에서 재료 골라 요리. 프레임워크 = 밀키트, 순서 정해짐.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">헷갈리기 쉬운 용어들</span><span class="tag tag-amber">자주 혼동</span></div>
+<p class="card-body"><strong>서버 vs 서버리스</strong>: 서버리스는 서버가 없는 게 아니라, 내가 직접 서버를 관리 안 해도 되는 방식. Vercel이 대표적이에요.<br/><br/>
+<strong>실행 / 빌드 / 배포</strong>: 실행(run) = 지금 켜는 것 · 빌드(build) = 배포용 파일로 변환 · 배포(deploy) = 인터넷에 올리는 것</p></div>
+<button class="done-btn" id="done8" onclick="markDone(8)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 9 · 심화편</div>
+<div class="ch-title">앱 종류와 기술 스택</div>
+<div class="ch-desc">어떤 앱을 만들 건지 정확히 표현하면 AI가 훨씬 적합한 방향을 제안할 수 있어요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">기술 스택 (Tech Stack)</span><span class="tag tag-purple">필수 용어</span></div>
+<p class="card-body">앱을 만드는 데 쓰인 기술들의 조합이에요.</p>
+<div class="scene"><strong>간단한 웹앱</strong>: HTML + CSS + JS 단일 파일<br/>
+<strong>React 앱</strong>: React + Tailwind CSS + Vercel<br/>
+<strong>풀스택</strong>: Next.js + PostgreSQL + Vercel</div></div>
+<div class="card"><div class="card-head"><span class="card-title">웹앱 vs 모바일앱 vs PWA</span><span class="tag tag-purple">종류 구분</span></div>
+<p class="card-body"><strong>웹앱</strong>: 브라우저. 설치 불필요. 진입 장벽 가장 낮음.<br/>
+<strong>PWA (Progressive Web App)</strong>: 웹앱을 홈 화면에 설치해서 앱처럼 쓰는 방식. manifest.json 추가만으로 가능.<br/>
+<strong>모바일앱</strong>: 스마트폰 설치. React Native, Flutter.<br/>
+<strong>데스크톱앱</strong>: PC 설치. Electron으로 웹 기술로도 가능.</p>
+<div class="tip">처음 만드는 앱은 웹앱부터 시작하세요. PWA 설정만 추가하면 홈 화면에 앱 아이콘도 만들 수 있어요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">PWA — 웹앱을 앱처럼</span><span class="tag tag-green">알면 유용</span></div>
+<p class="card-body">HTML 파일에 manifest.json을 추가하면 브라우저에서 "홈 화면에 추가"가 가능해요. 설치 후에는 일반 앱처럼 실행돼요.</p>
+<div class="scene"><strong>PWA 구성 요소:</strong><br/>
+    manifest.json — 앱 이름, 아이콘, 색상 정의<br/>
+    Service Worker — 오프라인 캐시 (선택적)</div></div>
+<div class="card"><div class="card-head"><span class="card-title">npm / 패키지</span><span class="tag tag-green">알면 좋음</span></div>
+<p class="card-body"><code class="c">npm install 패키지명</code> = "이 도구 설치해줘". npm은 JS 도구들의 앱스토어 같은 곳이에요.</p>
+<div class="tip"><code class="c">package.json</code>은 "이 프로젝트에 필요한 도구 목록"이에요. <code class="c">npm install</code> 하면 이걸 보고 자동 설치해요.</div></div>
+<button class="done-btn" id="done9" onclick="markDone(9)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 10 · 심화편</div>
+<div class="ch-title">개발 흐름과 필수 도구들</div>
+<div class="ch-desc">AI와 실제 개발할 때 흐름이 어떻게 돌아가는지 알아두면 덜 헷갈려요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">개발 → 테스트 → 배포 사이클</span><span class="tag tag-purple">전체 흐름</span></div>
+<div class="scene"><strong>1. 로컬 개발</strong>: 내 컴퓨터에서 코드 작성 + 브라우저로 확인<br/>
+<strong>2. 테스트</strong>: 기능이 제대로 동작하는지 직접 눌러보기<br/>
+<strong>3. 배포</strong>: GitHub → Vercel 등으로 인터넷에 공개<br/>
+<strong>4. 유지보수</strong>: 버그 수정, 기능 추가 → 1번으로</div></div>
+<div class="card"><div class="card-head"><span class="card-title">터미널 기본 명령어</span><span class="tag tag-green">알면 유용</span></div>
+<div class="pre"><span class="fn">ls</span> <span class="cm"># 현재 폴더 파일 목록</span>
+<span class="fn">cd</span> 폴더명   <span class="cm"># 폴더 이동</span>
+<span class="fn">pwd</span> <span class="cm"># 지금 내 위치</span>
+<span class="fn">npm install</span> <span class="cm"># 패키지 설치</span>
+<span class="fn">npm run dev</span> <span class="cm"># 개발 서버 시작</span></div>
+<div class="tip">AI 코딩 도구가 대부분 대신 실행해줘요. 명령어를 외울 필요는 없고 "이런 게 있구나" 정도로만 알아도 충분해요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">리팩토링 / 빌드 / 의존성</span><span class="tag tag-amber">자주 나오는 단어</span></div>
+<p class="card-body"><strong>리팩토링(Refactoring)</strong>: 기능은 그대로 두고 코드를 더 깔끔하게 정리하는 작업. AI가 "리팩토링 해드릴까요?" = 기능 변경 없이 코드 정리.<br/><br/>
+<strong>빌드(Build)</strong>: 개발용 코드를 배포용 최적화 파일로 변환하는 과정. Vercel은 자동으로 해줘요.<br/><br/>
+<strong>의존성(Dependency)</strong>: 이 프로젝트가 동작하기 위해 필요한 외부 라이브러리들. <code class="c">package.json</code>의 dependencies 항목에 적혀 있어요.</p></div>
+<button class="done-btn" id="done10" onclick="markDone(10)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 11 · 심화편</div>
+<div class="ch-title">AI 코딩 도구 활용법</div>
+<div class="ch-desc">채팅으로 개념을 물어보는 것과, 실제 코드를 짜고 파일을 만드는 것은 다른 도구예요. 둘을 구분해서 쓰면 훨씬 효율적이에요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">AI 채팅 vs AI 코딩 에이전트</span><span class="tag tag-red">반드시 구분하기</span></div>
+<div class="scene">
+<strong>AI 채팅 (ChatGPT, Claude, Gemini 등)</strong><br/>
+      설명·기획·코드 검토·개념 이해·막힐 때 상담. 텍스트로 대화하는 것.<br/><br/>
+<strong>AI 코딩 에이전트 (Cursor, Windsurf, Claude Code 등)</strong><br/>
+      실제 파일 생성·수정, 터미널 명령 실행, 앱 실행, 패키지 설치. 코드를 직접 작성하고 실행하는 것.
+    </div>
+<div class="tip">기획하고 방향 잡을 때 → AI 채팅. 실제 코드 짜고 파일 만들 때 → AI 코딩 에이전트. 이 두 가지를 번갈아 쓰는 게 효율적이에요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">AI 코딩 에이전트에게 잘 요청하는 법</span><span class="tag tag-purple">핵심 습관</span></div>
+<div class="scene">
+<strong>기능 추가:</strong> "현재 앱에 검색 기능 추가해줘. 입력창에 치면 목록이 필터링되게"<br/><br/>
+<strong>버그 수정:</strong> "버튼 클릭 시 페이지가 새로고침돼. 막아줘"<br/><br/>
+<strong>전체 제작:</strong> "사용자가 메모 작성·저장할 수 있는 웹앱. localStorage 사용. 단일 HTML 파일로"
+    </div>
+<div class="tip">AI 코딩 에이전트에게는 결과물을 구체적으로 말하세요. "예쁘게"보다 "노션처럼 심플하게"가 훨씬 나아요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">파일을 여러 개 만들었을 때</span><span class="tag tag-green">상황 대처</span></div>
+<p class="card-body">AI 코딩 에이전트가 한 번에 파일을 여러 개 만들고 수정할 때, 어떤 파일이 무슨 역할인지 물어봐도 돼요.</p>
+<div class="tip">"방금 만든 파일들 각각 뭐 하는 건지 설명해줘" — 이렇게 물어보면 각 파일의 역할을 알 수 있어요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">프로젝트 지시 파일 (CLAUDE.md, .cursorrules 등)</span><span class="tag tag-green">알면 유용</span></div>
+<p class="card-body">AI 코딩 에이전트는 프로젝트 루트에 있는 특정 파일을 세션 시작 시 자동으로 읽어요. 여기에 프로젝트 설명을 써두면 매번 설명하지 않아도 돼요.</p>
+<div class="scene">
+<strong>지시 파일에 써두면 좋은 것:</strong><br/>
+      - 이 앱이 어떤 앱인지 (목적, 대상 사용자)<br/>
+      - 기술 스택 (React? 순수 HTML? Firebase?)<br/>
+      - 코딩 스타일 규칙 (한국어 주석, 탭 크기 등)<br/>
+      - 하면 안 되는 것 (예: 외부 CSS 프레임워크 쓰지 말기)<br/>
+      - 자주 쓰는 명령어
+    </div>
+<div class="tip">도구마다 파일 이름이 달라요 — Claude Code는 <code class="c">CLAUDE.md</code>, Cursor는 <code class="c">.cursorrules</code>. 어떤 파일인지는 각 도구 문서에서 확인하세요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">에이전트 (Agent) — AI가 스스로 판단하고 행동하는 것</span><span class="tag tag-amber">개념 이해</span></div>
+<p class="card-body">일반 채팅에서 AI는 텍스트 답변만 해요. 하지만 코딩 에이전트 모드에서는 파일을 읽고, 코드를 수정하고, 터미널 명령을 실행하고, 결과를 확인하면서 작업을 스스로 완성해요.</p>
+<div class="scene">
+      AI가 "파일 수정 중...", "터미널 실행 중..." 같은 메시지를 보여주면 에이전트로 동작하고 있다는 뜻이에요.<br/><br/>
+<strong>채팅 모드</strong>: 사람이 코드 복사 → 붙여넣기 → 실행<br/>
+<strong>에이전트 모드</strong>: AI가 파일 직접 수정 + 실행까지 자동
+    </div>
+<div class="tip">에이전트가 뭔가 잘못된 것 같으면 언제든 중간에 멈출 수 있어요. 중요한 작업 전에 Git commit으로 백업해두는 게 안전해요.</div></div>
+<button class="done-btn" id="done11" onclick="markDone(11)">이 챕터 읽었어요 ✓</button>
+</div>
+<!-- git -->
+<div class="pane" data-tab="git">
+<div class="ch-header" style="margin-top:0">
+<div class="ch-num">Chapter 12 · Git 실전</div>
+<div class="ch-title">브랜치 · 커밋 · PR · merge</div>
+<div class="ch-desc">"왜 갑자기 브랜치가 생겼지?", "PR이 뭐야?", "merge는 어떻게 해?" — 이 챕터 하나로 정리해요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">commit이란?</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body">변경 사항을 <strong>저장 + 메모</strong>하는 것이에요. 게임 세이브 포인트처럼 커밋 시점으로 언제든 돌아갈 수 있어요.</p>
+<div class="pre"><span class="fn">git add</span> .                        <span class="cm"># 변경된 파일 선택</span>
+<span class="fn">git commit</span> -m <span class="str">"로그인 기능 추가"</span> <span class="cm"># 저장 + 메모</span></div></div>
+<div class="card"><div class="card-head"><span class="card-title">push vs pull</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body"><strong>push</strong>: 내 컴퓨터(로컬)의 코드를 GitHub(원격)에 올리는 것<br/>
+<strong>pull</strong>: GitHub(원격)의 코드를 내 컴퓨터(로컬)로 내려받는 것</p>
+<div class="pre"><span class="fn">git push</span> origin main  <span class="cm"># 로컬 → GitHub</span>
+<span class="fn">git pull</span> origin main  <span class="cm"># GitHub → 로컬</span></div>
+<div class="analogy">push = 구글 드라이브에 업로드. pull = 구글 드라이브에서 다운로드.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">브랜치 (Branch)란?</span><span class="tag tag-purple">핵심 개념</span></div>
+<p class="card-body">코드의 <strong>복사본 작업 공간</strong>이에요. 원본(main)을 건드리지 않고 새 기능을 시험해볼 수 있어요.</p>
+<div class="analogy">문서 편집할 때 "원본은 두고 사본에서 수정해봐" 하는 것과 같아요.</div>
+<div class="pre"><span class="cm"># 새 브랜치 만들고 이동</span>
+<span class="fn">git checkout</span> -b feature/login
+<span class="cm"># 이제 이 브랜치에서 작업 → main은 그대로</span></div></div>
+<div class="card"><div class="card-head"><span class="card-title">merge와 PR</span><span class="tag tag-purple">핵심 개념</span></div>
+<p class="card-body"><strong>merge</strong>: 브랜치에서 작업한 내용을 다른 브랜치(보통 main)에 합치는 것.<br/><br/>
+<strong>PR (Pull Request)</strong>: "내 브랜치 내용을 main에 합쳐도 될까요?"라고 GitHub에서 요청하는 것. diff를 확인하고 merge 버튼을 누르면 완료.</p>
+<div class="scene"><strong>PR 흐름:</strong><br/>
+    1. 브랜치에서 작업 완료<br/>
+    2. GitHub에서 PR 생성<br/>
+    3. diff 확인 (무엇이 바뀌었는지 검토)<br/>
+    4. 문제 없으면 merge 버튼 클릭</div></div>
+<div class="card"><div class="card-head"><span class="card-title">diff와 머지 충돌</span><span class="tag tag-green">알면 좋음</span></div>
+<p class="card-body"><strong>diff</strong>: 변경 사항의 차이를 보여주는 것. 어떤 줄이 추가됐는지(초록), 삭제됐는지(빨강).<br/><br/>
+<strong>머지 충돌(Merge Conflict)</strong>: 두 브랜치가 같은 파일의 같은 줄을 다르게 수정했을 때 발생. Git이 "어떤 걸 쓸지 나는 모르겠으니 직접 골라"라고 멈추는 상황.</p>
+<div class="warn">충돌이 나면 파일을 직접 열어서 원하는 내용만 남기고 나머지 표시를 지운 뒤, 다시 커밋해야 해요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">전체 흐름 한눈에 보기</span><span class="tag tag-purple">정리</span></div>
+<div class="scene"><strong>혼자 개발하는 가장 간단한 흐름:</strong><br/>
+    코드 수정 → <code class="c">git add .</code> → <code class="c">git commit -m "메모"</code> → <code class="c">git push</code> → 배포 자동 업데이트<br/><br/>
+<strong>브랜치를 쓰는 안전한 흐름:</strong><br/>
+    새 브랜치 생성 → 코드 수정 → commit → push → PR 생성 → diff 확인 → merge → main 배포</div></div>
+<button class="done-btn" id="done12" onclick="markDone(12)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 13 · Git 실전</div>
+<div class="ch-title">브랜치 실전 생존 가이드</div>
+<div class="ch-desc">브랜치 때문에 작업 내용이 유실되거나, 어느 브랜치에 있는지 몰라 혼란스러웠던 경험 — 이 챕터 하나로 정리해요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">지금 내가 어느 브랜치에 있는지 항상 확인하기</span><span class="tag tag-red">가장 중요</span></div>
+<p class="card-body">작업 시작 전에 현재 브랜치를 확인하는 습관이 가장 중요해요.</p>
+<div class="pre"><span class="fn">git branch</span> <span class="cm"># 브랜치 목록 + 현재 위치(* 표시)</span>
+<span class="fn">git status</span> <span class="cm"># 현재 브랜치 + 변경된 파일 목록</span></div></div>
+<div class="card"><div class="card-head"><span class="card-title">작업 내용이 사라진 것처럼 보일 때</span><span class="tag tag-red">유실 사고 원인 1</span></div>
+<p class="card-body">브랜치를 이동하면 파일 내용이 그 브랜치 상태로 바뀌어요. 사라진 게 아니라 다른 브랜치에 있는 거예요.</p>
+<div class="pre"><span class="cm"># 내가 작업하던 브랜치로 다시 이동</span>
+<span class="fn">git checkout</span> feature/내가-작업하던-브랜치</div></div>
+<div class="card"><div class="card-head"><span class="card-title">커밋 안 하고 브랜치 이동하면 생기는 일</span><span class="tag tag-red">유실 사고 원인 2</span></div>
+<div class="scene"><strong>안전한 브랜치 이동 순서:</strong><br/>
+    1. 작업 완료<br/>
+    2. <code class="c">git add .</code> → <code class="c">git commit -m "작업 내용"</code> (저장 먼저)<br/>
+    3. 그 다음 <code class="c">git checkout 다른브랜치</code></div>
+<div class="warn">커밋하지 않고 브랜치를 이동하는 건 위험해요. 이동하기 전에 항상 커밋하거나, stash를 쓰세요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">stash — 임시 저장</span><span class="tag tag-green">유용한 도구</span></div>
+<p class="card-body">커밋하기엔 애매한데 일단 작업 내용을 잠깐 치워둘 때 쓰는 <strong>임시 보관함</strong>이에요.</p>
+<div class="pre"><span class="fn">git stash</span> <span class="cm"># 현재 변경사항 임시 저장</span>
+<span class="fn">git stash pop</span> <span class="cm"># 임시 저장한 내용 다시 꺼내기</span></div>
+<div class="analogy">서랍에 잠깐 넣어두기. 나중에 꺼내면 그대로 있어요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">reset — 가장 위험한 명령어</span><span class="tag tag-red">위험</span></div>
+<div class="scene"><strong>git reset --soft</strong>: 커밋만 취소, 파일 변경사항은 남아있음 (비교적 안전)<br/><br/>
+<strong>git reset --mixed</strong>: 커밋 취소 + add도 취소, 파일은 남아있음<br/><br/>
+<strong>git reset --hard</strong>: 커밋 취소 + 파일 변경사항까지 전부 삭제 (위험!)</div>
+<div class="warn">AI 도구가 reset을 하려고 할 때 어떤 종류인지, 어떤 커밋으로 돌아가는지 꼭 확인해요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">HEAD와 origin</span><span class="tag tag-green">알면 좋음</span></div>
+<p class="card-body"><strong>HEAD</strong>: 지금 내가 작업하고 있는 현재 위치예요.<br/>
+<strong>origin</strong>: GitHub에 있는 내 레포지토리(원격 저장소)의 별명이에요.</p>
+<div class="pre"><span class="fn">git push</span> <span class="str">origin</span> main   <span class="cm"># origin = GitHub 주소의 별명</span>
+<span class="fn">git pull</span> <span class="str">origin</span> main   <span class="cm"># GitHub에서 내려받기</span></div></div>
+<button class="done-btn" id="done13" onclick="markDone(13)">이 챕터 읽었어요 ✓</button>
+</div>
+<!-- env -->
+<div class="pane" data-tab="env">
+<div class="ch-header" style="margin-top:0">
+<div class="ch-num">Chapter 14 · 개발 환경</div>
+<div class="ch-title">작업하다 갑자기 튀어나오는 개념들</div>
+<div class="ch-desc">실제로 개발하다 보면 "이게 뭐지?" 싶은 단어들이 갑자기 등장해요. 자주 만나는 것들만 골라서 정리했어요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">포트 (Port) — localhost:3000의 3000</span><span class="tag tag-purple">자주 보임</span></div>
+<p class="card-body">같은 컴퓨터에서 여러 서버를 동시에 실행하기 위한 <strong>번호</strong>예요.</p>
+<div class="scene"><code class="c">localhost:3000</code> → 3000번 포트에서 실행 중인 앱<br/>
+<code class="c">localhost:8080</code> → 8080번 포트에서 실행 중인 앱</div>
+<div class="tip">"포트 3000이 이미 사용 중" 에러 = 이미 그 번호로 다른 앱이 실행되고 있다는 뜻이에요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">환경 (Environment) — dev / staging / production</span><span class="tag tag-purple">꼭 알기</span></div>
+<div class="scene"><strong>development (dev)</strong>: 개발 중인 환경. 내 컴퓨터. 막 고쳐도 됨.<br/>
+<strong>staging</strong>: 배포 전 테스트 환경. 실제랑 똑같이 만들어둔 테스트 공간.<br/>
+<strong>production (prod)</strong>: 실제 사용자가 쓰는 환경. 신중하게 다뤄야 함.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">CORS 에러</span><span class="tag tag-red">자주 만남</span></div>
+<p class="card-body">브라우저가 <strong>다른 주소의 서버</strong>에 요청할 때 막히는 보안 정책이에요.</p>
+<div class="tip">CORS 에러 나면 에러 메시지 전체를 AI에게 붙여넣으면 해결해줘요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">캐시 (Cache)</span><span class="tag tag-green">알면 유용</span></div>
+<p class="card-body">속도를 위해 데이터를 미리 저장해두는 것이에요. "수정했는데 변경이 안 보여요" 현상의 원인이 되기도 해요.</p>
+<div class="tip">브라우저 캐시 지우기: <code class="c">Ctrl+Shift+R</code> (강력 새로고침).</div></div>
+<div class="card"><div class="card-head"><span class="card-title">환경변수 / API 키 / Secrets</span><span class="tag tag-purple">꼭 구분하기</span></div>
+<p class="card-body"><strong>API 키</strong>: 서비스에 접근하는 영구적인 비밀번호 같은 것.<br/>
+<strong>토큰(Token)</strong>: 로그인 후 임시로 발급되는 출입증. 시간이 지나면 만료돼요.<br/>
+<strong>.env 파일</strong>: 내 컴퓨터(로컬)에서 쓰는 비밀 설정 파일. GitHub에 올리면 안 돼요.<br/>
+<strong>Secrets</strong>: 배포 환경(GitHub/Vercel)에서 쓰는 비밀 설정.</p>
+<div class="warn">.gitignore 파일에 <code class="c">.env</code>가 들어 있어야 GitHub에 안 올라가요.</div></div>
+<div class="card"><div class="card-head"><span class="card-title">CRUD</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body">데이터를 다루는 <strong>4가지 기본 동작</strong>의 앞글자를 딴 말이에요.</p>
+<div class="scene"><strong>C</strong>reate — 만들기 (게시글 쓰기, 회원가입, 할 일 추가)<br/>
+<strong>R</strong>ead — 읽기 (목록 불러오기, 상세 페이지 보기)<br/>
+<strong>U</strong>pdate — 수정하기 (게시글 편집, 프로필 변경)<br/>
+<strong>D</strong>elete — 삭제하기 (게시글 지우기, 계정 탈퇴)</div>
+<div class="analogy">노션 데이터베이스로 비유하면: 행 추가(C) / 내용 보기(R) / 셀 수정(U) / 행 삭제(D)예요.</div></div>
+<button class="done-btn" id="done14" onclick="markDone(14)">이 챕터 읽었어요 ✓</button>
+<div class="ch-header">
+<div class="ch-num">Chapter 15 · 개발 환경</div>
+<div class="ch-title">정적 웹앱 vs 서버 기반 웹앱</div>
+<div class="ch-desc">"이 기능을 만들려면 서버가 필요한가요?" — 이 판단을 빨리 할수록 개발 방향이 명확해져요.</div>
+</div>
+<div class="card"><div class="card-head"><span class="card-title">정적 웹앱 (Static Web App)</span><span class="tag tag-purple">꼭 알기</span></div>
+<p class="card-body">HTML·CSS·JS 파일만으로 구성되고, <strong>브라우저가 직접 읽어서 실행</strong>해요. 서버가 필요 없어요.</p>
+<div class="pre">프로젝트/
+├── index.html
+├── style.css
+└── script.js
+
+실행 방법:
+index.html 더블클릭 → Chrome이 열림 → 웹앱 실행 ✅</div></div>
+<div class="card"><div class="card-head"><span class="card-title">어떤 기능이 필요할 때 서버가 생기나요?</span><span class="tag tag-purple">핵심 판단 기준</span></div>
+<p class="card-body"><strong>HTML 방식으로 충분한 경우:</strong><br/>
+    계산기, 간단한 폼, 단순 정보 표시, localStorage 저장, Firebase 직접 연동<br/><br/>
+<strong>서버(Node.js·Python 등)가 필요해지는 경우:</strong><br/>
+    회원가입·로그인, 여러 사람이 공유하는 DB, 파일 업로드, 이메일 발송, 결제 처리, API 키를 숨겨야 할 때</p>
+<div class="analogy">정적 웹앱 = 자판기 (전기만 꽂으면 됨) 🏧 · 서버 기반 웹앱 = 카페 (바리스타·기계·재료 전부 필요) ☕</div></div>
+<div class="card"><div class="card-head"><span class="card-title">서버 기반 기술 스택의 흐름</span></div>
+<div class="pre" style="font-size:11px;line-height:1.7;">간단한 앱:
+HTML + CSS + JS → index.html
+
+규모 있는 앱:
+React (화면 담당)
+    ↕
+Node.js + Express (서버 담당)
+    ↕
+SQLite / PostgreSQL (데이터 저장)
+→ npm run dev로 실행</div></div>
+<div class="card"><div class="card-head"><span class="card-title">CI/CD</span><span class="tag tag-green">알면 좋음</span></div>
+<p class="card-body">Continuous Integration / Continuous Deployment. 코드 올리면 자동으로 테스트하고 배포하는 파이프라인. GitHub Actions 같은 것.</p>
+<div class="tip">GitHub Pages를 쓰면 main에 push할 때마다 자동 배포되는데, 이게 간단한 CD예요.</div></div>
+<button class="done-btn" id="done15" onclick="markDone(15)">이 챕터 읽었어요 ✓</button>
+</div>
+<!-- 퀴즈·실습 -->
+<div class="pane" data-tab="quiz">
+<div class="ch-header" style="margin-top:0">
+<div class="ch-num">퀴즈·실습</div>
+<div class="ch-title">개념 퀴즈 &amp; 실습 과제</div>
+<div class="ch-desc">퀴즈는 풀수록 자동으로 진도가 올라가요. 실습은 직접 AI에게 요청해보는 과제들이에요.</div>
+</div>
+<div class="ch-header">
+<div class="ch-num">퀴즈</div>
+<div class="ch-title">개념 퀴즈</div>
+<div class="ch-desc">틀려도 괜찮아요. 해설을 읽으면서 이해하면 돼요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q1. "클라이언트 사이드에서 처리한다"는 말의 뜻은?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q1',this,false)">A. 서버 컴퓨터에서 실행된다</button>
+<button class="opt" onclick="ans('q1',this,true)">B. 사용자의 브라우저에서 실행된다</button>
+<button class="opt" onclick="ans('q1',this,false)">C. 데이터베이스에서 처리된다</button>
+</div>
+<div class="quiz-exp" id="q1-exp">클라이언트 = 브라우저(사용자 기기)예요. 서버 없이 브라우저에서만 실행된다는 뜻이에요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q2. <code class="c">const</code>와 <code class="c">let</code>의 차이는?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q2',this,false)">A. const는 숫자, let은 문자에 써요</button>
+<button class="opt" onclick="ans('q2',this,true)">B. const는 변경 불가, let은 변경 가능</button>
+<button class="opt" onclick="ans('q2',this,false)">C. 차이 없어요</button>
+</div>
+<div class="quiz-exp" id="q2-exp">const(상수)는 한 번 정하면 변경 불가. let은 나중에 값을 바꿀 수 있어요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q3. 앱에서 빨간 에러가 떴어요. 가장 먼저 해야 할 행동은?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q3',this,false)">A. 처음부터 다시 만든다</button>
+<button class="opt" onclick="ans('q3',this,true)">B. F12 콘솔 탭에서 에러 메시지 전체를 복사한다</button>
+<button class="opt" onclick="ans('q3',this,false)">C. 브라우저를 껐다 켠다</button>
+</div>
+<div class="quiz-exp" id="q3-exp">콘솔(F12)에서 에러 전체를 복사해서 AI에게 주는 게 가장 빠른 해결법이에요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q4. Java와 JavaScript의 관계는?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q4',this,false)">A. JavaScript는 Java의 최신 버전이다</button>
+<button class="opt" onclick="ans('q4',this,false)">B. Java는 JavaScript의 줄임말이다</button>
+<button class="opt" onclick="ans('q4',this,true)">C. 이름만 비슷하고 완전히 다른 언어다</button>
+</div>
+<div class="quiz-exp" id="q4-exp">Java와 JavaScript는 완전히 다른 언어예요. 이름이 비슷한 건 마케팅 이유 때문이에요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q5. "상태(State)가 바뀌었다"는 말의 의미는?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q5',this,false)">A. 코드 파일이 수정됐다</button>
+<button class="opt" onclick="ans('q5',this,true)">B. 앱이 기억하는 값이 변해서 화면이 다시 그려진다</button>
+<button class="opt" onclick="ans('q5',this,false)">C. 배포가 완료됐다</button>
+</div>
+<div class="quiz-exp" id="q5-exp">상태(state)는 앱이 현재 기억하는 값이에요. 상태가 바뀌면 React 등은 자동으로 화면을 다시 그려줘요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q6. "빌드(build)"란 무엇인가요?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q6',this,false)">A. 앱을 인터넷에 올리는 것</button>
+<button class="opt" onclick="ans('q6',this,false)">B. 내 컴퓨터에서 앱을 켜는 것</button>
+<button class="opt" onclick="ans('q6',this,true)">C. 개발용 코드를 배포용 최적화 파일로 변환하는 것</button>
+</div>
+<div class="quiz-exp" id="q6-exp">빌드는 개발용 코드를 배포 가능한 형태로 변환하는 과정이에요. 실행(내 컴퓨터에서 켜기)과 배포(인터넷에 올리기) 사이에 있어요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q7. "리팩토링(Refactoring)을 해드릴까요?"라는 AI 제안의 의미는?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q7',this,false)">A. 기능을 추가한다</button>
+<button class="opt" onclick="ans('q7',this,true)">B. 기능은 그대로, 코드를 더 깔끔하게 정리한다</button>
+<button class="opt" onclick="ans('q7',this,false)">C. 앱을 처음부터 다시 만든다</button>
+</div>
+<div class="quiz-exp" id="q7-exp">리팩토링은 기능 변경 없이 코드 구조를 개선하는 작업이에요. 사용자 입장에서는 아무것도 안 바뀌어요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q8. localStorage에 데이터를 저장했을 때의 특징은?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q8',this,false)">A. 모든 기기에서 동기화되어 볼 수 있다</button>
+<button class="opt" onclick="ans('q8',this,false)">B. 탭을 닫으면 데이터가 사라진다</button>
+<button class="opt" onclick="ans('q8',this,true)">C. 탭을 닫아도 유지되지만 같은 기기·브라우저에서만 보인다</button>
+</div>
+<div class="quiz-exp" id="q8-exp">localStorage는 브라우저에 영구 저장돼요. 탭을 닫거나 컴퓨터를 껐다 켜도 유지되지만, 다른 기기에서는 볼 수 없어요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q9. git push와 git pull의 차이는?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q9',this,true)">A. push는 로컬→GitHub 업로드, pull은 GitHub→로컬 다운로드</button>
+<button class="opt" onclick="ans('q9',this,false)">B. push는 GitHub→로컬 다운로드, pull은 로컬→GitHub 업로드</button>
+<button class="opt" onclick="ans('q9',this,false)">C. 둘 다 같은 동작이다</button>
+</div>
+<div class="quiz-exp" id="q9-exp">push = 내 컴퓨터에서 GitHub로 올리기. pull = GitHub에서 내 컴퓨터로 내려받기. 구글 드라이브의 업로드/다운로드와 같아요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q10. 두 브랜치가 같은 파일의 같은 줄을 다르게 수정했을 때 merge하면?</p>
+<div class="opts">
+<button class="opt" onclick="ans('q10',this,false)">A. 최신 수정 내용이 자동으로 선택된다</button>
+<button class="opt" onclick="ans('q10',this,true)">B. 머지 충돌(Merge Conflict)이 발생해서 직접 선택해야 한다</button>
+<button class="opt" onclick="ans('q10',this,false)">C. 오래된 내용이 자동으로 삭제된다</button>
+</div>
+<div class="quiz-exp" id="q10-exp">머지 충돌이 나면 파일 안에 &lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD / ======= / &gt;&gt;&gt;&gt;&gt;&gt;&gt; 표시가 생기고, 직접 원하는 내용을 골라서 저장해야 해요.</div>
+</div>
+<div class="ch-header" style="margin-top:32px;">
+<div class="ch-num">실습 과제</div>
+<div class="ch-title">실습 과제</div>
+<div class="ch-desc">AI에게 직접 요청해보는 과제들이에요. 막히면 언제든지 돌아와서 다시 물어봐요.</div>
+</div>
+<div class="card" style="background:#1e1d1a;margin-bottom:12px;color:#d4d0c4;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+<span style="font-size:11px;background:#5b4fd4;color:#fff;padding:2px 8px;border-radius:20px;font-weight:600;">실습 01</span>
+<span style="font-size:14px;font-weight:700;color:#f0ede6;">Hello World 만들기</span>
+</div>
+<p style="font-size:13px;line-height:1.75;color:#9a9688;"><strong style="color:#d4d0c4;">요청할 내용</strong>: "배경이 어두운 남색이고 가운데에 '안녕하세요!'라고 흰 글씨로 적힌 HTML 파일 하나 만들어줘"<br/><br/>만들어진 HTML 파일을 브라우저에서 열어봐요.</p>
+<p style="margin-top:10px;font-size:12px;color:#6a6858;border-top:1px solid #2e2c28;padding-top:8px;"><span style="color:#8a7fd0;font-weight:600;">힌트: </span>HTML 파일을 더블클릭하거나 VS Code에서 열면 브라우저로 미리보기 가능해요.</p>
+<button class="done-btn" id="pracdone1" onclick="markPracDone(1)" style="margin-top:12px;margin-bottom:0;border-color:#5b4fd4;color:#5b4fd4;">이 실습 완료했어요 ✓</button>
+</div>
+<div class="card" style="background:#1e1d1a;margin-bottom:12px;color:#d4d0c4;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+<span style="font-size:11px;background:#5b4fd4;color:#fff;padding:2px 8px;border-radius:20px;font-weight:600;">실습 02</span>
+<span style="font-size:14px;font-weight:700;color:#f0ede6;">버튼 클릭 카운터</span>
+</div>
+<p style="font-size:13px;line-height:1.75;color:#9a9688;"><strong style="color:#d4d0c4;">요청할 내용</strong>: "버튼 누르면 숫자가 올라가는 카운터 앱. +1, -1, 리셋 버튼 세 개. 단일 HTML 파일로"<br/><br/>완성 후 "-1 눌렀을 때 0 아래로 안 내려가도록 수정"을 추가 요청해봐요.</p>
+<p style="margin-top:10px;font-size:12px;color:#6a6858;border-top:1px solid #2e2c28;padding-top:8px;"><span style="color:#8a7fd0;font-weight:600;">힌트: </span>단계적으로 기능 추가하는 게 실제 개발 패턴이에요.</p>
+<button class="done-btn" id="pracdone2" onclick="markPracDone(2)" style="margin-top:12px;margin-bottom:0;border-color:#5b4fd4;color:#5b4fd4;">이 실습 완료했어요 ✓</button>
+</div>
+<div class="card" style="background:#1e1d1a;margin-bottom:12px;color:#d4d0c4;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+<span style="font-size:11px;background:#5b4fd4;color:#fff;padding:2px 8px;border-radius:20px;font-weight:600;">실습 03</span>
+<span style="font-size:14px;font-weight:700;color:#f0ede6;">에러 재현 + 해결</span>
+</div>
+<p style="font-size:13px;line-height:1.75;color:#9a9688;"><strong style="color:#d4d0c4;">요청할 내용</strong>: "의도적으로 에러나는 JS 코드 예시 하나 만들어줘. 콘솔 에러 확인하고 고치는 연습 하려고"<br/><br/>F12 콘솔에서 에러 메시지 확인 → 복사 → AI에게 붙여넣어 해결해봐요.</p>
+<p style="margin-top:10px;font-size:12px;color:#6a6858;border-top:1px solid #2e2c28;padding-top:8px;"><span style="color:#8a7fd0;font-weight:600;">힌트: </span>이 연습 한 번이면 에러 앞에서 당황하는 게 크게 줄어요.</p>
+<button class="done-btn" id="pracdone3" onclick="markPracDone(3)" style="margin-top:12px;margin-bottom:0;border-color:#5b4fd4;color:#5b4fd4;">이 실습 완료했어요 ✓</button>
+</div>
+<div class="card" style="background:#1e1d1a;margin-bottom:12px;color:#d4d0c4;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+<span style="font-size:11px;background:#5b4fd4;color:#fff;padding:2px 8px;border-radius:20px;font-weight:600;">실습 04</span>
+<span style="font-size:14px;font-weight:700;color:#f0ede6;">간단한 API 연결</span>
+</div>
+<p style="font-size:13px;line-height:1.75;color:#9a9688;"><strong style="color:#d4d0c4;">요청할 내용</strong>: "버튼 누르면 랜덤 명언 가져와서 화면에 표시하는 웹앱. 무료 API 사용해서"<br/><br/>API 연결 후, JSON 응답 구조를 AI에게 설명해달라고 해봐요.</p>
+<p style="margin-top:10px;font-size:12px;color:#6a6858;border-top:1px solid #2e2c28;padding-top:8px;"><span style="color:#8a7fd0;font-weight:600;">힌트: </span>에러가 나도 당황하지 말고 콘솔 메시지를 AI에게 바로 줘요.</p>
+<button class="done-btn" id="pracdone4" onclick="markPracDone(4)" style="margin-top:12px;margin-bottom:0;border-color:#5b4fd4;color:#5b4fd4;">이 실습 완료했어요 ✓</button>
+</div>
+<div class="card" style="background:#1e1d1a;margin-bottom:12px;color:#d4d0c4;">
+<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+<span style="font-size:11px;background:#1a8c60;color:#fff;padding:2px 8px;border-radius:20px;font-weight:600;">도전 실습</span>
+<span style="font-size:14px;font-weight:700;color:#f0ede6;">미니 앱 전체 사이클</span>
+</div>
+<p style="font-size:13px;line-height:1.75;color:#9a9688;"><strong style="color:#d4d0c4;">목표</strong>: 할 일 목록 앱 (To-do App)<br/>
+<strong style="color:#d4d0c4;">기능</strong>: 추가, 완료 체크, 삭제, localStorage 저장<br/>
+<strong style="color:#d4d0c4;">배포</strong>: GitHub Pages 또는 Vercel로 실제 URL 만들기<br/><br/>
+      한 번에 다 만들려 하지 말고 기능 하나씩 붙여나가요.</p>
+<p style="margin-top:10px;font-size:12px;color:#6a6858;border-top:1px solid #2e2c28;padding-top:8px;"><span style="color:#8a7fd0;font-weight:600;">힌트: </span>이 과제를 끝내면 개발 → 배포 전체 흐름을 한 번 경험한 거예요.</p>
+<button class="done-btn" id="pracdone5" onclick="markPracDone(5)" style="margin-top:12px;margin-bottom:0;border-color:#5b4fd4;color:#5b4fd4;">이 실습 완료했어요 ✓</button>
+</div>
+</div>
+<!-- 용어 사전 -->
+<div class="pane" data-tab="terms">
+<div class="ch-header" style="margin-top:0">
+<div class="ch-num">📖 용어 사전</div>
+<div class="ch-title">바이브코딩하다 자주 만나는 용어들</div>
+<div class="ch-desc">몰라도 만들 수는 있지만, 알면 AI와 대화가 훨씬 부드러워져요.</div>
+</div>
+<div class="sec-label">⚙️ 코드 기본 개념</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>스코프 / Scope</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">변수가 살아있는 범위. 함수 안에서 만든 변수는 함수 밖에서 쓸 수 없음. 이걸 모르면 "변수가 왜 없다고 하지?" 버그가 생김.</p>
+<div class="pre">function hello() {
+  const name = '홍길동'; // 함수 스코프 안
+}
+console.log(name); // ❌ 오류 — 밖에서 접근 불가</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>콜백 / Callback</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">나중에 호출되도록 함수에 넘겨주는 함수. "이거 끝나면 이 함수 불러줘"의 개념.</p>
+<div class="pre">// "파일 읽기 끝나면 이 함수(콜백)를 실행해줘"
+readFile('data.txt', function(result) {
+  console.log(result); // 이게 콜백
+});</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>비동기 / Async · Await</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">기다리지 않고 다음 코드 실행. 서버 응답 기다리는 동안 화면이 멈추지 않는 이유. await은 "여기서만 기다려".</p>
+<div class="pre">// await 없이 → 데이터 오기 전에 실행됨 (버그)
+// await 있음 → 데이터 올 때까지 기다렸다가 실행
+const data = await fetch('/api/items');</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>사이드 이펙트 / Side Effect</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">함수가 반환값 외에 외부에 영향을 주는 것. localStorage 저장, 화면 업데이트, 콘솔 출력 등.</p>
+<div class="tip">AI가 "이 함수에 사이드 이펙트가 있어요"라고 하면: 이 함수가 뭔가를 바꾼다는 뜻.</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>리그레션 / Regression</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">이전에 잘 되던 기능이 수정 후에 망가지는 것. 버그를 고쳤더니 다른 버그가 생기는 상황.</p>
+<div class="tip">AI가 "리그레션이 없는지 테스트해보세요"라고 하면: 기존에 잘 되던 것도 확인하세요 라는 뜻.</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>하드코딩 / Hardcoding</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">값을 변수로 빼지 않고 코드 안에 직접 박아넣는 것. 나중에 바꿔야 할 때 힘들어짐.</p>
+<div class="tip">예: 색상값이나 URL을 코드 여기저기 직접 써넣는 것. 변수나 상수로 빼는 게 좋은 습관.</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>컨벤션 / Convention</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">팀이나 언어에서 암묵적으로 정한 코딩 규칙. 강제는 아니지만 안 따르면 이상하게 보임.</p>
+<div class="tip">예: 변수명은 camelCase, 상수는 UPPER_SNAKE_CASE, 파일명은 kebab-case 등.</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>기술 부채 / Tech Debt</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">빠르게 개발하려고 대충 짠 코드. 지금은 잘 돌아가지만 나중에 반드시 고쳐야 하는 것. 금전적 부채처럼 이자가 붙음.</p>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>롤백 / Rollback</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">배포 후 문제가 생겨서 이전 버전으로 되돌리는 것. git revert나 이전 버전 재배포로 실행.</p>
+</div>
+<div class="sec-label">🗄️ 자료구조</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>스택 / Stack</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">마지막에 넣은 게 먼저 나오는 구조 (LIFO). 브라우저 뒤로가기, Ctrl+Z 실행취소가 이 방식.</p>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>큐 / Queue</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">먼저 넣은 게 먼저 나오는 구조 (FIFO). 줄 서기랑 같음. 네트워크 요청 대기열, 알림 발송 순서에 사용.</p>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>해시맵 / HashMap (객체)</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">key-value 쌍의 저장 구조. JavaScript의 객체(Object)가 해시맵이에요. key로 값을 바로 꺼낼 수 있어 빠름.</p>
+<div class="pre">const map = { 'apple': 1200, 'banana': 800 };
+console.log(map['apple']); // → 1200</div>
+</div>
+<div class="sec-label">🌐 웹과 API</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>엔드포인트 / Endpoint</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">API에서 특정 기능을 담당하는 URL 주소. "이 주소로 요청 보내면 이 기능을 해줌".</p>
+<div class="pre">GET  /api/users          ← 유저 목록
+POST /api/users          ← 유저 추가
+DELETE /api/users/123    ← 특정 유저 삭제</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>페이로드 / Payload</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">요청이나 응답에 실제로 담기는 데이터. 택배로 치면 박스(HTTP 요청) 안에 들어있는 내용물(payload).</p>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>웹훅 / Webhook</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">이벤트가 발생하면 자동으로 특정 URL을 호출해주는 것. 내가 계속 물어보는 게 아니라 상대방이 알려줌.</p>
+<div class="tip">예: GitHub에서 코드 push되면 → 자동으로 배포 서버에 알림 전송</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>미들웨어 / Middleware</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">요청과 응답 사이에 끼어서 처리하는 함수. 로그인 확인, 로그 기록, 데이터 검증 등을 요청마다 공통으로 처리할 때 씀.</p>
+<div class="tip">공항 보안 검색대처럼, 요청이 목적지에 도달하기 전에 거쳐야 하는 관문들.</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>멱등성 / Idempotent</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">같은 요청을 여러 번 해도 결과가 같은 성질. GET, PUT은 멱등, POST는 아님 (누를 때마다 새로 생성됨).</p>
+<div class="tip">결제 버튼을 실수로 두 번 눌러도 한 번만 결제돼야 → 멱등성이 중요한 이유</div>
+</div>
+<div class="sec-label">🏗️ 자주 쓰는 구조와 패턴</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>옵저버 패턴 / Observer Pattern</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">어떤 값이 바뀌면 구독 중인 여러 곳에 자동으로 알려주는 구조. 이벤트 리스너, Firebase의 onSnapshot이 이 패턴.</p>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>낙관적 업데이트 / Optimistic Update</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">서버 응답을 기다리지 않고 UI를 먼저 바꾸는 것. 빠르게 느껴지지만 실패하면 롤백해야 함.</p>
+<div class="tip">좋아요 버튼 누르면 즉시 하트가 채워지고, 서버 실패 시 되돌아오는 것이 낙관적 업데이트예요.</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>이벤트 버블링 / Event Bubbling</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">자식 요소의 이벤트가 부모로 전파되는 것. 카드 안의 버튼 클릭이 카드 클릭도 같이 발생시키는 이유.</p>
+<div class="pre">// 버블링 막기
+button.onclick = function(e) {
+  e.stopPropagation(); // 부모로 전파 차단
+  doSomething();
+};</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>모킹 / Mocking</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">실제 데이터나 API 대신 가짜로 만들어서 테스트하는 것. 서버가 아직 없어도 프론트 개발 가능하게 해줌.</p>
+<div class="tip">AI가 "일단 목업 데이터로 개발하고 나중에 실제 API 연결할게요"라고 하면 이 뜻.</div>
+</div>
+<div class="card" style="margin-bottom:10px;">
+<strong>SSOT / Single Source of Truth</strong>
+<p style="margin:6px 0 4px;font-size:13.5px;color:var(--text-secondary);">데이터의 유일한 원본을 한 곳에만 두는 원칙. 두 곳에 같은 데이터가 있으면 동기화 문제가 생김.</p>
+</div>
+<div class="sec-label">🖼️ UI 레이아웃 용어</div>
+<div class="card">
+<div class="card-head"><span class="card-title">화면 구조 한눈에 보기</span><span class="tag tag-yellow">꼭 알기</span></div>
+<div class="pre" style="font-size:11.5px;line-height:1.7;">┌─────────────────────────────────────┐
+│              Header / Navbar         │  ← 상단 고정 영역
+│─────────┬───────────────────────────│
+│         │                           │
+│ Sidebar │      Main Content         │  ← 본문 영역
+│  (Nav)  │                           │
+│         │   ┌─────────────────┐     │
+│         │   │   Card / Panel  │     │  ← 정보 묶음
+│         │   └─────────────────┘     │
+│─────────┴───────────────────────────│
+│              Footer                 │  ← 하단 고정 영역
+└─────────────────────────────────────┘
+              ↓ (모바일에서는)
+┌─────────────────────┐
+│     Top Bar         │  ← 모바일 상단 바 (햄버거+제목)
+│─────────────────────│
+│   Main Content      │
+│─────────────────────│
+│  Bottom Navigation  │  ← 하단 탭바 (인스타그램 하단처럼)
+└─────────────────────┘</div>
+</div>
+<div class="card">
+<div class="card-head"><span class="card-title">Modal · Dialog · Popup · Overlay</span><span class="tag tag-purple">자주 혼동</span></div>
+<p class="card-body">모두 "현재 화면 위에 떠있는 무언가"예요.<br/><br/>
+<strong>Modal (모달)</strong>: 화면 중앙에 뜨는 창. 뒤 배경이 어두워지고, 닫기 전까지 다른 조작이 막혀요.<br/>
+<strong>Overlay (오버레이)</strong>: Modal을 띄울 때 배경에 깔리는 어두운 반투명 레이어.<br/>
+<strong>Popup (팝업)</strong>: 요즘은 Modal과 거의 같은 뜻으로 혼용돼요.</p>
+</div>
+<div class="card">
+<div class="card-head"><span class="card-title">Toast · Snackbar · Tooltip · Banner</span></div>
+<p class="card-body">
+<strong>Toast (토스트)</strong>: 화면 아래에 잠깐 나타났다 사라지는 짧은 알림. "저장됐어요 ✓" 같은 것.<br/>
+<strong>Snackbar (스낵바)</strong>: Toast와 거의 같아요. Android에서 쓰는 표현.<br/>
+<strong>Tooltip (툴팁)</strong>: 요소에 마우스를 올리면 나오는 작은 설명 풍선.<br/>
+<strong>Banner (배너)</strong>: 화면 상단에 길게 가로질러 표시되는 알림 바.</p>
+</div>
+<div class="card">
+<div class="card-head"><span class="card-title">FAB · Chip · Badge · Breadcrumb</span></div>
+<p class="card-body">
+<strong>FAB (Floating Action Button)</strong>: 화면 위에 둥둥 떠있는 큰 원형 버튼.<br/>
+<strong>Chip (칩)</strong>: 작고 둥근 태그 모양 요소. 필터, 태그, 선택지 등에 써요.<br/>
+<strong>Badge (뱃지)</strong>: 숫자나 점으로 알림 개수를 표시하는 작은 표시.<br/>
+<strong>Breadcrumb (브레드크럼)</strong>: 현재 위치를 계층으로 보여주는 탐색 표시. <code class="c">홈 &gt; 설정 &gt; 디자인</code></p>
+</div>
+<div class="card">
+<div class="card-head"><span class="card-title">Bottom Sheet · Drawer · Sidebar</span></div>
+<p class="card-body">
+<strong>Bottom Sheet (바텀 시트)</strong>: 화면 아래에서 위로 밀려 올라오는 패널. 모바일에서 자주 써요.<br/>
+<strong>Drawer (드로어)</strong>: 평소엔 숨겨져 있다가 햄버거 버튼을 누르면 옆에서 밀려나오는 메뉴.<br/>
+<strong>Sidebar (사이드바)</strong>: 화면 옆(주로 왼쪽)에 항상 노출되는 보조 영역.</p>
+</div>
+<div class="card">
+<div class="card-head"><span class="card-title">Dropdown · Popover · Context Menu</span></div>
+<p class="card-body">
+<strong>Dropdown (드롭다운)</strong>: 버튼을 클릭하면 아래로 펼쳐지는 선택 목록.<br/>
+<strong>Popover (포오버)</strong>: 요소 근처에 말풍선처럼 뜨는 작은 패널. Tooltip보다 크고 더 많은 내용을 담아요.<br/>
+<strong>Context Menu</strong>: 마우스 우클릭하면 나오는 메뉴.</p>
+</div>
+<div class="sec-label">✍️ 렌더링과 에디터 용어</div>
+<div class="card">
+<div class="card-head"><span class="card-title">렌더링(Rendering) — 코드를 눈에 보이는 화면으로</span><span class="tag tag-purple">자주 나옴</span></div>
+<p class="card-body">
+<strong>CSR (Client-Side Rendering)</strong>: 브라우저가 JavaScript를 받아서 화면을 직접 그려요.<br/><br/>
+<strong>SSR (Server-Side Rendering)</strong>: 서버가 HTML을 미리 만들어서 브라우저에 보내줘요. Next.js가 대표적.<br/><br/>
+<strong>SSG (Static Site Generation)</strong>: 빌드할 때 HTML을 미리 다 만들어 저장해요. 속도 최강.</p>
+<div class="pre" style="font-size:11px;line-height:1.7;">CSR:  브라우저 → JS 실행 → 화면 그리기
+SSR:  서버 → HTML 완성 → 브라우저에 전송
+SSG:  빌드 시 HTML 생성 → CDN에 저장 → 즉시 전송</div>
+</div>
+<div class="card">
+<div class="card-head"><span class="card-title">WYSIWYG, Markdown, Hot Reload</span></div>
+<p class="card-body">
+<strong>WYSIWYG (위지윅)</strong>: 편집 화면에서 보이는 그대로가 최종 결과물. 노션, 구글 독스가 대표적.<br/><br/>
+<strong>Markdown (마크다운)</strong>: #, **, - 같은 기호로 서식을 표현하는 경량 문법. GitHub README에 많이 써요.<br/><br/>
+<strong>Hot Reload (핫 리로드)</strong>: 코드를 저장하면 브라우저 전체를 새로고침하지 않고 변경된 부분만 자동 반영.</p>
+</div>
+<div class="card">
+<div class="card-head"><span class="card-title">Template · Boilerplate · Scaffold</span></div>
+<p class="card-body">
+<strong>Template (템플릿)</strong>: 미리 만들어둔 틀. 내용만 채우면 돼요.<br/>
+<strong>Boilerplate (보일러플레이트)</strong>: 프로젝트 시작 시 매번 필요한 반복 코드 묶음.<br/>
+<strong>Scaffold (스캐폴드)</strong>: 프레임워크가 자동으로 기본 파일·폴더 구조를 생성해주는 것.</p>
+<div class="analogy">Template = 빈칸 채우기 양식 📄 · Boilerplate = 항상 쓰는 기본 세팅 🔩 · Scaffold = 공사 시작 전 세우는 비계 🏗️</div>
+</div>
+<!-- 용어 사전 퀴즈 -->
+<div class="ch-header" style="margin-top:32px;">
+<div class="ch-num">📝 용어 확인 퀴즈</div>
+<div class="ch-title">얼마나 익혔나 확인해봐요</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q. 기능은 그대로인데 코드 구조를 깔끔하게 개선하는 것을 뭐라고 할까요?</p>
+<div class="opts">
+<button class="opt" onclick="ans('tq1',this,false)">마이그레이션</button>
+<button class="opt" onclick="ans('tq1',this,true)">리팩토링</button>
+<button class="opt" onclick="ans('tq1',this,false)">롤백</button>
+<button class="opt" onclick="ans('tq1',this,false)">하드코딩</button>
+</div>
+<div class="quiz-exp" id="tq1-exp">리팩토링(Refactoring)은 결과는 동일하게 유지하면서 코드 품질을 개선하는 것이에요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q. API에서 특정 기능을 담당하는 URL 주소를 뭐라고 해요?</p>
+<div class="opts">
+<button class="opt" onclick="ans('tq2',this,false)">페이로드</button>
+<button class="opt" onclick="ans('tq2',this,true)">엔드포인트</button>
+<button class="opt" onclick="ans('tq2',this,false)">웹훅</button>
+<button class="opt" onclick="ans('tq2',this,false)">미들웨어</button>
+</div>
+<div class="quiz-exp" id="tq2-exp">엔드포인트(Endpoint)예요. /api/users 같은 URL 경로 하나하나가 엔드포인트예요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q. 이전에 잘 되던 기능이 수정 후에 망가지는 것을 뭐라고 해요?</p>
+<div class="opts">
+<button class="opt" onclick="ans('tq3',this,false)">핫픽스</button>
+<button class="opt" onclick="ans('tq3',this,true)">리그레션</button>
+<button class="opt" onclick="ans('tq3',this,false)">기술 부채</button>
+<button class="opt" onclick="ans('tq3',this,false)">사이드 이펙트</button>
+</div>
+<div class="quiz-exp" id="tq3-exp">리그레션(Regression)이에요. 수정 전에 잘 되던 기능이 수정 후에 망가지는 것. 테스트가 중요한 이유예요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q. 코드 밖에 저장하는 API 키, 비밀번호 같은 설정값을 뭐라고 해요?</p>
+<div class="opts">
+<button class="opt" onclick="ans('tq4',this,false)">디펜던시</button>
+<button class="opt" onclick="ans('tq4',this,true)">환경변수</button>
+<button class="opt" onclick="ans('tq4',this,false)">컨벤션</button>
+<button class="opt" onclick="ans('tq4',this,false)">레거시</button>
+</div>
+<div class="quiz-exp" id="tq4-exp">환경변수(Environment Variable)예요. .env 파일에 저장하고 절대 GitHub에 올리면 안 돼요!</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q. 먼저 넣은 것이 먼저 나오는 자료구조는?</p>
+<div class="opts">
+<button class="opt" onclick="ans('tq5',this,false)">스택(Stack)</button>
+<button class="opt" onclick="ans('tq5',this,true)">큐(Queue)</button>
+<button class="opt" onclick="ans('tq5',this,false)">해시맵(HashMap)</button>
+<button class="opt" onclick="ans('tq5',this,false)">클로저(Closure)</button>
+</div>
+<div class="quiz-exp" id="tq5-exp">큐(Queue)예요. FIFO(First In, First Out). 줄 서기랑 같아요. 스택은 반대로 LIFO(마지막에 넣은 게 먼저 나옴).</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q. 화면 아래에서 위로 밀려 올라오는 패널을 뭐라고 하나요?</p>
+<div class="opts">
+<button class="opt" onclick="ans('tq6',this,false)">Popover</button>
+<button class="opt" onclick="ans('tq6',this,false)">Modal</button>
+<button class="opt" onclick="ans('tq6',this,true)">Bottom Sheet</button>
+<button class="opt" onclick="ans('tq6',this,false)">Drawer</button>
+</div>
+<div class="quiz-exp" id="tq6-exp">Bottom Sheet예요. 모바일에서 공유·정렬·옵션 패널로 자주 써요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q. 노션처럼 편집 화면에서 보이는 그대로 최종 결과가 되는 방식은?</p>
+<div class="opts">
+<button class="opt" onclick="ans('tq7',this,false)">Markdown</button>
+<button class="opt" onclick="ans('tq7',this,true)">WYSIWYG</button>
+<button class="opt" onclick="ans('tq7',this,false)">SSR</button>
+</div>
+<div class="quiz-exp" id="tq7-exp">WYSIWYG(위지윅)이에요. What You See Is What You Get. 노션, 구글 독스가 대표적이에요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q. 데이터를 다루는 기본 4가지 동작(만들기·읽기·수정·삭제)을 묶어 부르는 말은?</p>
+<div class="opts">
+<button class="opt" onclick="ans('tq8',this,false)">API</button>
+<button class="opt" onclick="ans('tq8',this,true)">CRUD</button>
+<button class="opt" onclick="ans('tq8',this,false)">REST</button>
+<button class="opt" onclick="ans('tq8',this,false)">MVC</button>
+</div>
+<div class="quiz-exp" id="tq8-exp">CRUD예요. Create / Read / Update / Delete의 앞글자. 대부분의 앱이 이 네 가지 동작 중심으로 만들어져요.</div>
+</div>
+<div class="card" style="margin-bottom:12px;">
+<p class="q-text">Q. 잠깐 나타났다 사라지는 "저장됐어요 ✓" 같은 짧은 알림의 이름은?</p>
+<div class="opts">
+<button class="opt" onclick="ans('tq9',this,false)">Banner</button>
+<button class="opt" onclick="ans('tq9',this,true)">Toast / Snackbar</button>
+<button class="opt" onclick="ans('tq9',this,false)">Dialog</button>
+<button class="opt" onclick="ans('tq9',this,false)">Tooltip</button>
+</div>
+<div class="quiz-exp" id="tq9-exp">Toast(또는 Snackbar)예요. 짧은 피드백 알림으로 자주 써요.</div>
+</div>
+</div>
+</div>
       </div>
 
       <!-- 설정 페이지 -->
@@ -1536,6 +2670,216 @@
       loadTasks();
       renderTaskList();
     });
+  </script>
+
+  <script>
+    // =====================================================
+    // 바이브코팅 개발 공부하기 메뉴 기능
+    // 원본: devnotes.html
+    // =====================================================
+
+  var done = JSON.parse(localStorage.getItem('vibedev_done') || '{}');
+  var quizAnswered = JSON.parse(localStorage.getItem('vibedev_quiz') || '{}');
+  var pracDone = JSON.parse(localStorage.getItem('vibedev_prac') || '{}');
+
+  var CHAPTERS = [
+    null,
+    {title:'웹 앱의 구조', section:'basic'},
+    {title:'개발 언어 입문', section:'basic'},
+    {title:'AI가 준 코드 읽기', section:'prac'},
+    {title:'에러 메시지 해석', section:'prac'},
+    {title:'파일 구조와 배포', section:'prac'},
+    {title:'데이터 흐름', section:'prac'},
+    {title:'구조 용어 심화', section:'adv'},
+    {title:'앱 종류와 기술 스택', section:'adv'},
+    {title:'개발 흐름과 도구', section:'adv'},
+    {title:'브랜치·커밋·PR·merge', section:'git'},
+    {title:'브랜치 실전 가이드', section:'git'},
+    {title:'개발 환경 개념들', section:'env'},
+    {title:'정적 vs 서버 기반 웹앱', section:'env'},
+  ];
+
+  var SECTIONS = {
+    basic: {label:'기초편', total:2, ids:[1,2]},
+    prac:  {label:'실전편', total:4, ids:[3,4,5,6]},
+    adv:   {label:'심화편', total:3, ids:[7,8,9]},
+    git:   {label:'Git 실전', total:2, ids:[10,11]},
+    env:   {label:'개발 환경', total:2, ids:[12,13]},
+  };
+
+  var TAB_MAP = {basic:'basic', prac:'prac', adv:'adv', git:'git', env:'env'};
+  var TOTAL_QUIZ = 10;
+  var TOTAL_PRAC = 5;
+
+  function save() { localStorage.setItem('vibedev_done', JSON.stringify(done)); }
+  function saveQuiz() { localStorage.setItem('vibedev_quiz', JSON.stringify(quizAnswered)); }
+  function savePrac() { localStorage.setItem('vibedev_prac', JSON.stringify(pracDone)); }
+
+  function markDone(idx) {
+    done[idx] = true; save();
+    var btn = document.getElementById('done' + idx);
+    if (btn) { btn.classList.add('checked'); btn.textContent = '✓ 읽었어요!'; }
+    updateAll();
+  }
+
+  function markPracDone(idx) {
+    pracDone[idx] = true; savePrac();
+    var btn = document.getElementById('pracdone' + idx);
+    if (btn) { btn.classList.add('checked'); btn.textContent = '✓ 완료!'; }
+    updateAll();
+  }
+
+  function sw(key) {
+    // special buttons
+    document.querySelectorAll('#dn .special-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.key === key);
+    });
+    // tab buttons
+    document.querySelectorAll('#dn .tab-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.tab === key);
+    });
+    // panes
+    document.querySelectorAll('#dn .pane').forEach(function(p) {
+      p.classList.toggle('active', p.dataset.tab === key);
+    });
+    if (key === 'dash') updateAll();
+    window.scrollTo(0, 0);
+  }
+
+  function updateAll() {
+    var total = 0, doneCount = 0;
+    for (var i = 1; i < CHAPTERS.length; i++) {
+      if (!CHAPTERS[i]) continue;
+      total++; if (done[i]) doneCount++;
+    }
+    // 전체 진도 바
+    var pf = document.getElementById('prog-fill');
+    var pl = document.getElementById('prog-label');
+    if (pf) pf.style.width = (total ? doneCount / total * 100 : 0) + '%';
+    if (pl) pl.textContent = doneCount + ' / ' + total;
+
+    // 퀴즈 진도 미니 바 (상단)
+    var qCount = Object.keys(quizAnswered).filter(function(k){ return k.startsWith('q'); }).length;
+    var pCount = Object.keys(pracDone).length;
+    var totalQP = TOTAL_QUIZ + TOTAL_PRAC;
+    var doneQP = qCount + pCount;
+    var qpf = document.getElementById('quiz-prog-fill');
+    var qpl = document.getElementById('quiz-prog-label');
+    if (qpf) qpf.style.width = (doneQP / totalQP * 100) + '%';
+    if (qpl) qpl.textContent = doneQP + ' / ' + totalQP;
+
+    // done 버튼 상태
+    for (var i = 1; i < CHAPTERS.length; i++) {
+      if (!CHAPTERS[i]) continue;
+      var btn = document.getElementById('done' + i);
+      if (btn && done[i]) { btn.classList.add('checked'); btn.textContent = '✓ 읽었어요!'; }
+    }
+    for (var j = 1; j <= TOTAL_PRAC; j++) {
+      var pb = document.getElementById('pracdone' + j);
+      if (pb && pracDone[j]) { pb.classList.add('checked'); pb.textContent = '✓ 완료!'; }
+    }
+
+    // 섹션별 진도 바 (대시보드)
+    Object.keys(SECTIONS).forEach(function(sec) {
+      var s = SECTIONS[sec];
+      var cnt = s.ids.filter(function(i) { return done[i]; }).length;
+      var fill = document.getElementById('fill-' + sec);
+      var cntEl = document.getElementById('cnt-' + sec);
+      if (fill) fill.style.width = (cnt / s.total * 100) + '%';
+      if (cntEl) cntEl.textContent = cnt + '/' + s.total;
+    });
+
+    // 대시보드 퀴즈·실습 진도
+    var dqf = document.getElementById('dash-quiz-fill');
+    var dqc = document.getElementById('dash-quiz-cnt');
+    if (dqf) dqf.style.width = (qCount / TOTAL_QUIZ * 100) + '%';
+    if (dqc) dqc.textContent = qCount + '/' + TOTAL_QUIZ;
+    var dpf = document.getElementById('dash-prac-fill');
+    var dpc = document.getElementById('dash-prac-cnt');
+    if (dpf) { dpf.style.width = (pCount / TOTAL_PRAC * 100) + '%'; dpf.style.background = '#1a8c60'; }
+    if (dpc) dpc.textContent = pCount + '/' + TOTAL_PRAC;
+
+    // 대시보드 챕터 그리드
+    var grid = document.getElementById('dash-grid');
+    if (grid) {
+      var html = '';
+      for (var j = 1; j < CHAPTERS.length; j++) {
+        var ch = CHAPTERS[j]; if (!ch) continue;
+        var isDone = done[j];
+        var sec = ch.section;
+        var secLabel = SECTIONS[sec] ? SECTIONS[sec].label : '';
+        html += '<div class="dash-card' + (isDone ? ' done' : '') + '">';
+        html += '<div class="dash-card-num">Ch ' + j + ' · ' + secLabel + '</div>';
+        html += '<div class="dash-card-title">' + ch.title + '</div>';
+        html += '<div class="dash-card-status">' + (isDone ? '✓ 완료' : '● 미완료') + '</div>';
+        var tabKey = TAB_MAP[sec] || 'basic';
+        html += '<button class="dash-goto" data-tab="' + tabKey + '" onclick="sw(this.dataset.tab)">' + (isDone ? '복습하기' : '바로가기') + '</button>';
+        html += '</div>';
+      }
+      grid.innerHTML = html;
+    }
+  }
+
+  function resetAll() {
+    if (confirm('학습 진도를 전부 초기화할까요?\n(퀴즈·실습 진도도 함께 초기화됩니다)')) {
+      done = {}; quizAnswered = {}; pracDone = {};
+      save(); saveQuiz(); savePrac(); updateAll();
+    }
+  }
+
+  function markAllDone() {
+    for (var i = 1; i < CHAPTERS.length; i++) { if (CHAPTERS[i]) done[i] = true; }
+    save(); updateAll();
+  }
+
+  function ans(qid, btn, isCorrect) {
+    if (quizAnswered[qid] !== undefined) return;
+    quizAnswered[qid] = isCorrect;
+    saveQuiz();
+    var opts = btn.parentElement.querySelectorAll('.opt');
+    opts.forEach(function(o) { o.disabled = true; });
+    if (isCorrect) {
+      btn.classList.add('correct');
+    } else {
+      btn.classList.add('wrong');
+      opts.forEach(function(o) {
+        var oc = o.getAttribute('onclick') || '';
+        if (oc.indexOf(',true)') !== -1) o.classList.add('correct');
+      });
+    }
+    var exp = document.getElementById(qid + '-exp');
+    if (exp) exp.classList.add('show');
+    updateAll();
+    // restore button visual state on re-render
+  }
+
+  function restoreQuizState() {
+    Object.keys(quizAnswered).forEach(function(qid) {
+      var isCorrect = quizAnswered[qid];
+      // find opts in the quiz
+      var expEl = document.getElementById(qid + '-exp');
+      if (expEl) expEl.classList.add('show');
+      // find the opts group via exp's parent card
+      if (expEl) {
+        var card = expEl.closest ? expEl.closest('.card') : expEl.parentElement;
+        if (card) {
+          var opts = card.querySelectorAll('.opt');
+          opts.forEach(function(o) {
+            o.disabled = true;
+            var oc = o.getAttribute('onclick') || '';
+            if (oc.indexOf(',true)') !== -1) o.classList.add(isCorrect ? '' : 'correct');
+          });
+        }
+      }
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', function() {
+    updateAll();
+    sw('dash');
+    restoreQuizState();
+  });
+
   </script>
 </body>
 </html>
