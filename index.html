@@ -503,16 +503,29 @@
       align-items: center;
     }
 
-    .status-select {
+    .mobile-status-actions {
+      display: none;
+      gap: 6px;
+      flex-wrap: wrap;
       flex: 1;
-      min-width: 0;
+    }
+
+    .mobile-status-btn {
       border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--text-secondary);
       border-radius: 7px;
       padding: 6px 8px;
       font-size: 12px;
-      color: var(--text-secondary);
-      background: #fff;
+      cursor: pointer;
       font-family: var(--font-main);
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .mobile-status-btn:hover {
+      background: var(--primary-light);
+      border-color: var(--primary);
+      color: var(--primary);
     }
 
     .task-delete-btn {
@@ -655,6 +668,76 @@
       font-size: 12px;
     }
 
+    .calendar-page-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .calendar-selected-card {
+      position: sticky;
+      top: 24px;
+    }
+
+    .calendar-selected-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .calendar-selected-header h3 {
+      margin-bottom: 2px;
+    }
+
+    .calendar-selected-header p {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .calendar-task-preview-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .calendar-task-preview {
+      border: 1px solid var(--border-color);
+      border-radius: 9px;
+      background: #fff;
+      padding: 10px;
+    }
+
+    .calendar-task-preview.done {
+      opacity: 0.62;
+    }
+
+    .calendar-task-preview-title {
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 6px;
+      word-break: break-word;
+    }
+
+    .calendar-task-preview.done .calendar-task-preview-title {
+      text-decoration: line-through;
+      color: var(--text-secondary);
+    }
+
+    .calendar-task-preview-status {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: var(--bg-main);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
     @media (max-width: 980px) {
       .task-board {
         grid-template-columns: 1fr;
@@ -664,6 +747,12 @@
       }
       .task-summary-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .calendar-page-layout {
+        grid-template-columns: 1fr;
+      }
+      .calendar-selected-card {
+        position: static;
       }
     }
 
@@ -677,6 +766,15 @@
         order: -1;
       }
       .task-form {
+        flex-direction: column;
+      }
+      .mobile-status-actions {
+        display: flex;
+      }
+      .task-card-actions {
+        align-items: flex-start;
+      }
+      .calendar-selected-header {
         flex-direction: column;
       }
       .calendar-day,
@@ -922,10 +1020,11 @@
 
       <!-- 네비게이션 -->
       <nav class="sidebar-nav">
-        <button class="nav-item active" onclick="showPage('homePage', this, '🏠 홈')">🏠 홈</button>
-        <button class="nav-item" onclick="showPage('taskPage', this, '📝 할일 목록')">📝 할일 목록</button>
-        <button class="nav-item" onclick="showPage('vibeCodingPage', this, '📓 바이브코팅 개발 공부하기')">📓 바이브코팅 개발 공부하기</button>
-        <button class="nav-item" onclick="showPage('settingsPage', this, '⚙️ 설정')">⚙️ 설정</button>
+        <button class="nav-item active" id="navHome" onclick="showPage('homePage', this, '🏠 홈')">🏠 홈</button>
+        <button class="nav-item" id="navTask" onclick="showPage('taskPage', this, '📝 할일 목록')">📝 할일 목록</button>
+        <button class="nav-item" id="navCalendar" onclick="showPage('calendarPage', this, '📅 달력')">📅 달력</button>
+        <button class="nav-item" id="navVibe" onclick="showPage('vibeCodingPage', this, '📓 바이브코팅 개발 공부하기')">📓 바이브코팅 개발 공부하기</button>
+        <button class="nav-item" id="navSettings" onclick="showPage('settingsPage', this, '⚙️ 설정')">⚙️ 설정</button>
       </nav>
 
       <!-- 하단 푸터 -->
@@ -954,7 +1053,7 @@
       <div id="taskPage" class="page">
         <div class="page-header">
           <h2>📝 할일 목록</h2>
-          <p>하루에 꼭 끝낼 3개의 할일을 날짜별로 관리하세요</p>
+          <p>카드를 마우스로 끌어 시작전 · 진행중 · 완료 칸으로 옮겨보세요</p>
         </div>
 
         <div class="task-layout">
@@ -1024,7 +1123,18 @@
             </div>
           </section>
 
-          <!-- 달력 -->
+
+        </div>
+      </div>
+
+      <!-- 달력 페이지 -->
+      <div id="calendarPage" class="page">
+        <div class="page-header">
+          <h2>📅 달력</h2>
+          <p>날짜별 할일 개수와 선택한 날짜의 할일을 확인하세요</p>
+        </div>
+
+        <div class="calendar-page-layout">
           <section class="card calendar-card">
             <div class="calendar-header">
               <button class="btn-secondary compact" onclick="moveCalendarMonth(-1)">‹ 이전달</button>
@@ -1035,9 +1145,19 @@
               <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
             </div>
             <div class="calendar-grid" id="calendarGrid"></div>
-            <p class="calendar-help">점이 있는 날짜는 할일이 등록된 날이에요. 날짜를 누르면 해당 날짜의 할일로 이동합니다.</p>
+            <p class="calendar-help">점이 있는 날짜는 할일이 등록된 날이에요. 날짜를 누르면 아래에 해당 날짜의 할일이 표시됩니다.</p>
           </section>
 
+          <section class="card calendar-selected-card">
+            <div class="calendar-selected-header">
+              <div>
+                <h3 id="calendarSelectedTitle">선택한 날짜 할일</h3>
+                <p id="calendarSelectedSubtext">날짜를 선택하면 할일 요약이 보여요.</p>
+              </div>
+              <button class="btn-primary compact" onclick="openSelectedDateTasks()">이 날짜 할일 관리</button>
+            </div>
+            <div id="calendarSelectedTasks" class="calendar-task-preview-list"></div>
+          </section>
         </div>
       </div>
 
@@ -2449,6 +2569,7 @@ SSG:  빌드 시 HTML 생성 → CDN에 저장 → 즉시 전송</div>
       renderStatusColumn('doing', 'taskListDoing', 'countDoing');
       renderStatusColumn('done', 'taskListDone', 'countDone');
       renderCalendar();
+      renderCalendarSelectedTasks();
     }
 
     function renderSelectedDateHeader() {
@@ -2516,14 +2637,19 @@ SSG:  빌드 시 HTML 생성 → CDN에 저장 → 즉시 전송</div>
             '<span class="task-badge">' + selectedDate + '</span>' +
           '</div>' +
           '<div class="task-card-actions">' +
-            '<select class="status-select" value="' + task.status + '" onchange="changeTaskStatus(' + task.id + ', this.value)">' +
-              '<option value="todo" ' + (task.status === 'todo' ? 'selected' : '') + '>시작전</option>' +
-              '<option value="doing" ' + (task.status === 'doing' ? 'selected' : '') + '>진행중</option>' +
-              '<option value="done" ' + (task.status === 'done' ? 'selected' : '') + '>완료</option>' +
-            '</select>' +
+            '<div class="mobile-status-actions">' +
+              createStatusButtonsHTML(task) +
+            '</div>' +
             '<button class="task-delete-btn" onclick="deleteTask(' + task.id + ')">삭제</button>' +
           '</div>' +
         '</div>';
+    }
+
+    function createStatusButtonsHTML(task) {
+      return Object.keys(TASK_STATUS)
+        .filter(status => status !== task.status)
+        .map(status => '<button class="mobile-status-btn" onclick="changeTaskStatus(' + task.id + ', \'' + status + '\')">' + TASK_STATUS[status].label + '</button>')
+        .join('');
     }
 
     function saveTasks() {
@@ -2584,6 +2710,38 @@ SSG:  빌드 시 HTML 생성 → CDN에 저장 → 즉시 전송</div>
       renderCalendar();
     }
 
+    function renderCalendarSelectedTasks() {
+      const titleEl = document.getElementById('calendarSelectedTitle');
+      const subtextEl = document.getElementById('calendarSelectedSubtext');
+      const listEl = document.getElementById('calendarSelectedTasks');
+      if (!titleEl || !subtextEl || !listEl) return;
+
+      const dailyTasks = getTasksByDate(selectedDate);
+      const doneCount = dailyTasks.filter(task => task.status === 'done').length;
+      titleEl.textContent = getKoreanDateLabel(selectedDate);
+      subtextEl.textContent = dailyTasks.length + '개 등록 · ' + doneCount + '개 완료';
+
+      if (dailyTasks.length === 0) {
+        listEl.innerHTML = '<div class="empty-state">이 날짜에는 등록된 할일이 없어요.</div>';
+        return;
+      }
+
+      listEl.innerHTML = dailyTasks.map(task => {
+        const status = TASK_STATUS[task.status] ? task.status : 'todo';
+        const doneClass = status === 'done' ? ' done' : '';
+        return '' +
+          '<div class="calendar-task-preview' + doneClass + '">' +
+            '<div class="calendar-task-preview-title">' + escapeHTML(task.title) + '</div>' +
+            '<span class="calendar-task-preview-status">' + TASK_STATUS[status].label + '</span>' +
+          '</div>';
+      }).join('');
+    }
+
+    function openSelectedDateTasks() {
+      showPage('taskPage', document.getElementById('navTask'), '📝 할일 목록');
+      renderTaskList();
+    }
+
     function renderCalendar() {
       const grid = document.getElementById('calendarGrid');
       const title = document.getElementById('calendarMonthTitle');
@@ -2617,6 +2775,7 @@ SSG:  빌드 시 HTML 생성 → CDN에 저장 → 즉시 전송</div>
       }
 
       grid.innerHTML = html;
+      renderCalendarSelectedTasks();
     }
 
     function handleDragStart(event, id) {
