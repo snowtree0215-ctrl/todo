@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>하루 3개 할일 관리 앱</title>
+
+  <!-- PWA 설정 -->
+  <meta name="theme-color" content="#4f8ef7">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="나의앱">
+  <link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;나의 앱&quot;,&quot;short_name&quot;:&quot;나의앱&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;%23ffffff&quot;,&quot;theme_color&quot;:&quot;%234f8ef7&quot;,&quot;icons&quot;:[{&quot;src&quot;:&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📋%3C/text%3E%3C/svg%3E&quot;,&quot;sizes&quot;:&quot;any&quot;,&quot;type&quot;:&quot;image/svg+xml&quot;}]}">
+
+  <!-- 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===================================================
+       CSS 변수 — 여기서 색상·폰트를 바꾸세요
+       =================================================== */
+    :root {
+      --primary:        #4f8ef7;
+      --primary-light:  #e8f0fe;
+      --bg-main:        #f5f6fa;
+      --bg-sidebar:     #ffffff;
+      --card-bg:        #ffffff;
+      --text-primary:   #1a1a1a;
+      --text-secondary: #666666;
+      --text-tertiary:  #aaaaaa;
+      --border-color:   #e0e0e0;
+      --sidebar-width:  220px;
+      --font-main:      'Noto Sans KR', sans-serif;
+    }
+
+    /* ===================================================
+       리셋 & 기본
+       =================================================== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg-main);
+      color: var(--text-primary);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ===================================================
+       레이아웃
+       =================================================== */
+    .app-container { display: flex; min-height: 100vh; }
+
+    /* 사이드바 */
+    .sidebar {
+      width: var(--sidebar-width);
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      transition: transform 0.25s ease;
+    }
+
+    /* 사이드바 상단 — 로고 + 프로필 */
+    .sidebar-header {
+      padding: 20px 20px 16px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .sidebar-logo {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .profile-area {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile-photo {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      border: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      cursor: pointer;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-info { flex: 1; min-width: 0; }
+
+    .profile-name {
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .profile-quote {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 사이드바 네비게이션 */
+    .sidebar-nav { flex: 1; padding: 12px 0; }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text-secondary);
+      transition: background 0.15s;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: var(--font-main);
+    }
+
+    .nav-item:hover { background: var(--bg-main); color: var(--text-primary); }
+    .nav-item.active { background: var(--primary-light); color: var(--primary); font-weight: 500; }
+
+    /* 사이드바 하단 푸터 */
+    .sidebar-footer {
+      padding: 12px 16px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .sf-btn {
+      background: transparent;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--text-secondary);
+      font-family: var(--font-main);
+      transition: background 0.15s;
+    }
+
+    .sf-btn:hover { background: var(--bg-main); }
+
+    /* 메인 콘텐츠 */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 32px;
+      min-height: 100vh;
+    }
+
+    /* ===================================================
+       페이지 전환
+       =================================================== */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .page-header { margin-bottom: 24px; }
+    .page-header h2 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+    .page-header p { color: var(--text-secondary); font-size: 13px; }
+
+    /* ===================================================
+       카드
+       =================================================== */
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .card h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+
+    /* ===================================================
+       버튼
+       =================================================== */
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      font-family: var(--font-main);
+      transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      font-family: var(--font-main);
+      transition: background 0.15s;
+    }
+    .btn-secondary:hover { background: var(--bg-main); }
+
+    .btn-danger {
+      background: transparent;
+      color: #e53e3e;
+      border: 1px solid #e53e3e;
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      font-family: var(--font-main);
+      transition: background 0.15s;
+    }
+    .btn-danger:hover { background: #fff5f5; }
+
+    /* ===================================================
+       입력 필드
+       =================================================== */
+    .input-field {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: var(--font-main);
+      background: #fff;
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .input-field:focus { border-color: var(--primary); }
+
+    /* 설정 폼 레이블 */
+    .form-row { margin-bottom: 16px; }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+    }
+
+    /* 설정 탭 */
+    .settings-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 24px;
+      overflow-x: auto;
+    }
+    .settings-tab {
+      background: transparent;
+      border: none;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      color: var(--text-secondary);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+      font-family: var(--font-main);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .settings-tab:hover { color: var(--text-primary); background: var(--bg-main); }
+    .settings-tab.active { color: var(--text-primary); border-bottom-color: var(--primary); }
+    .settings-section { display: none; }
+    .settings-section.active { display: block; }
+
+
+
+    /* ===================================================
+       할일 관리 앱
+       =================================================== */
+    .task-layout {
+      display: grid;
+      gap: 16px;
+    }
+
+    .task-control-card {
+      display: grid;
+      gap: 18px;
+    }
+
+    .date-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .date-title-wrap {
+      flex: 1;
+      min-width: 180px;
+      text-align: center;
+    }
+
+    .date-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .date-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .compact {
+      padding: 8px 12px;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .task-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .task-summary-box {
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px;
+    }
+
+    .summary-label {
+      display: block;
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .task-summary-box strong {
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .task-form {
+      display: flex;
+      gap: 8px;
+    }
+
+    .task-input {
+      flex: 1;
+    }
+
+    .task-limit-text {
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    .task-limit-text.warning {
+      color: #e53e3e;
+      font-weight: 500;
+    }
+
+    .task-board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .status-column {
+      min-height: 280px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px;
+      transition: border-color 0.15s, background 0.15s, transform 0.15s;
+    }
+
+    .status-column.drag-over {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    .status-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .status-header h3 {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .status-count {
+      min-width: 26px;
+      height: 26px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: var(--bg-main);
+      color: var(--text-secondary);
+      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+    }
+
+    .task-list {
+      display: grid;
+      gap: 10px;
+      min-height: 210px;
+    }
+
+    .task-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px;
+      cursor: grab;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+      transition: transform 0.15s, opacity 0.15s, border-color 0.15s;
+    }
+
+    .task-card:active {
+      cursor: grabbing;
+    }
+
+    .task-card.dragging {
+      opacity: 0.45;
+      transform: scale(0.98);
+    }
+
+    .task-card.done {
+      opacity: 0.65;
+    }
+
+    .task-card-title {
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      word-break: break-word;
+    }
+
+    .task-card.done .task-card-title {
+      text-decoration: line-through;
+      color: var(--text-secondary);
+    }
+
+    .task-card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .task-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: var(--bg-main);
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .task-card-actions {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    .status-select {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid var(--border-color);
+      border-radius: 7px;
+      padding: 6px 8px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: #fff;
+      font-family: var(--font-main);
+    }
+
+    .task-delete-btn {
+      border: 1px solid var(--border-color);
+      background: transparent;
+      color: #e53e3e;
+      border-radius: 7px;
+      padding: 6px 8px;
+      font-size: 12px;
+      cursor: pointer;
+      font-family: var(--font-main);
+      flex-shrink: 0;
+    }
+
+    .task-delete-btn:hover {
+      background: #fff5f5;
+      border-color: #e53e3e;
+    }
+
+    .empty-state {
+      min-height: 96px;
+      border: 1px dashed var(--border-color);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: var(--text-tertiary);
+      font-size: 13px;
+      padding: 14px;
+    }
+
+    .calendar-card {
+      margin-bottom: 0;
+    }
+
+    .calendar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .calendar-header h3 {
+      margin-bottom: 0;
+      text-align: center;
+      flex: 1;
+    }
+
+    .calendar-weekdays,
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .calendar-weekdays {
+      margin-bottom: 6px;
+      color: var(--text-secondary);
+      font-size: 12px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .calendar-day,
+    .calendar-blank {
+      min-height: 64px;
+      border-radius: 10px;
+    }
+
+    .calendar-day {
+      position: relative;
+      border: 1px solid var(--border-color);
+      background: #fff;
+      color: var(--text-primary);
+      cursor: pointer;
+      font-family: var(--font-main);
+      font-size: 13px;
+      padding: 8px;
+      text-align: left;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+
+    .calendar-day:hover {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .calendar-day.today {
+      border-color: var(--primary);
+    }
+
+    .calendar-day.selected {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+      font-weight: 700;
+    }
+
+    .calendar-count {
+      position: absolute;
+      right: 6px;
+      bottom: 6px;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 999px;
+      background: var(--primary-light);
+      color: var(--primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .calendar-day.selected .calendar-count {
+      background: rgba(255,255,255,0.22);
+      color: #fff;
+    }
+
+    .calendar-dot {
+      position: absolute;
+      left: 8px;
+      bottom: 12px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+
+    .calendar-day.selected .calendar-dot {
+      background: #fff;
+    }
+
+    .calendar-help {
+      margin-top: 12px;
+      color: var(--text-tertiary);
+      font-size: 12px;
+    }
+
+    @media (max-width: 980px) {
+      .task-board {
+        grid-template-columns: 1fr;
+      }
+      .status-column {
+        min-height: auto;
+      }
+      .task-summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 560px) {
+      .date-toolbar {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .date-title-wrap {
+        grid-column: 1 / -1;
+        order: -1;
+      }
+      .task-form {
+        flex-direction: column;
+      }
+      .calendar-day,
+      .calendar-blank {
+        min-height: 48px;
+        padding: 6px;
+      }
+      .calendar-count {
+        right: 4px;
+        bottom: 4px;
+      }
+    }
+
+    /* ===================================================
+       모달
+       =================================================== */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 500;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 12px;
+      padding: 24px;
+      width: 100%;
+      max-width: 420px;
+      margin: 16px;
+    }
+    .modal-box h3 { font-size: 16px; font-weight: 700; margin-bottom: 16px; }
+
+    .modal-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    /* ===================================================
+       토스트
+       =================================================== */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1a1a1a;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 14px;
+      z-index: 9999;
+      transition: transform 0.25s ease;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    #toast.show { transform: translateX(-50%) translateY(0); }
+
+    /* ===================================================
+       모바일
+       =================================================== */
+    .mobile-top-bar {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 52px;
+      background: #fff;
+      border-bottom: 1px solid var(--border-color);
+      align-items: center;
+      padding: 0 16px;
+      gap: 12px;
+      z-index: 200;
+    }
+    .mobile-hamburger {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      padding: 4px;
+      color: var(--text-primary);
+    }
+    .mobile-title { font-size: 16px; font-weight: 700; }
+
+    @media (max-width: 768px) {
+      .mobile-top-bar { display: flex; }
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); box-shadow: 4px 0 20px rgba(0,0,0,0.15); }
+      .main-content { margin-left: 0; padding: 72px 16px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 모바일 상단 바 -->
+  <div class="mobile-top-bar" id="mobileTopBar">
+    <button class="mobile-hamburger" onclick="toggleSidebar()">☰</button>
+    <div class="mobile-title" id="mobilePageTitle">하루 3개 플래너</div>
+  </div>
+
+  <!-- 앱 전체 레이아웃 -->
+  <div class="app-container">
+
+    <!-- 사이드바 -->
+    <aside class="sidebar" id="sidebar">
+
+      <!-- 로고 + 프로필 -->
+      <div class="sidebar-header">
+        <div class="sidebar-logo">📋 하루 3개 플래너</div>
+        <div class="profile-area">
+          <div class="profile-photo" id="profilePhoto" onclick="showPage('settingsPage', null, '⚙️ 설정')">
+            👤
+          </div>
+          <div class="profile-info">
+            <div class="profile-name" id="profileName">이름을 설정하세요</div>
+            <div class="profile-quote" id="profileQuote">뭐든지 할 수 있어!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 네비게이션 -->
+      <nav class="sidebar-nav">
+        <button class="nav-item active" onclick="showPage('homePage', this, '🏠 홈')">🏠 홈</button>
+        <button class="nav-item" onclick="showPage('taskPage', this, '📝 할일 목록')">📝 할일 목록</button>
+        <button class="nav-item" onclick="showPage('settingsPage', this, '⚙️ 설정')">⚙️ 설정</button>
+      </nav>
+
+      <!-- 하단 푸터 -->
+      <div class="sidebar-footer">
+        <button class="sf-btn" onclick="location.reload()" title="페이지 새로고침">🔄 새로고침</button>
+      </div>
+
+    </aside>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+
+      <!-- 홈 페이지 -->
+      <div id="homePage" class="page active">
+        <div class="page-header">
+          <h2>🏠 홈</h2>
+          <p>환영합니다</p>
+        </div>
+        <div class="card">
+          <h3>시작하기</h3>
+          <p style="color: var(--text-secondary);">왼쪽 메뉴에서 원하는 기능을 선택하세요.</p>
+        </div>
+      </div>
+
+      <!-- 할일 목록 페이지 -->
+      <div id="taskPage" class="page">
+        <div class="page-header">
+          <h2>📝 할일 목록</h2>
+          <p>하루에 꼭 끝낼 3개의 할일을 날짜별로 관리하세요</p>
+        </div>
+
+        <div class="task-layout">
+
+          <!-- 날짜 + 입력 영역 -->
+          <section class="card task-control-card">
+            <div class="date-toolbar">
+              <button class="btn-secondary compact" onclick="moveSelectedDate(-1)">‹ 이전날</button>
+              <div class="date-title-wrap">
+                <div class="date-title" id="selectedDateTitle">오늘</div>
+                <div class="date-subtitle" id="selectedDateSubtitle">날짜를 불러오는 중</div>
+              </div>
+              <button class="btn-secondary compact" onclick="moveSelectedDate(1)">다음날 ›</button>
+              <button class="btn-primary compact" onclick="goToday()">오늘</button>
+            </div>
+
+            <div class="task-summary-grid">
+              <div class="task-summary-box">
+                <span class="summary-label">오늘 할일</span>
+                <strong id="summaryTotal">0 / 3</strong>
+              </div>
+              <div class="task-summary-box">
+                <span class="summary-label">진행중</span>
+                <strong id="summaryDoing">0</strong>
+              </div>
+              <div class="task-summary-box">
+                <span class="summary-label">완료</span>
+                <strong id="summaryDone">0</strong>
+              </div>
+              <div class="task-summary-box">
+                <span class="summary-label">완료율</span>
+                <strong id="summaryRate">0%</strong>
+              </div>
+            </div>
+
+            <form class="task-form" onsubmit="handleTaskFormSubmit(event)">
+              <input class="input-field task-input" id="taskInput" type="text" maxlength="60" placeholder="오늘 끝낼 할일을 입력하세요. 예: 엣시 썸네일 1개 만들기">
+              <button class="btn-primary" type="submit">추가</button>
+            </form>
+            <p class="task-limit-text" id="taskLimitText">선택한 날짜마다 최대 3개까지 추가할 수 있어요.</p>
+          </section>
+
+          <!-- 상태별 보드 -->
+          <section class="task-board" aria-label="상태별 할일 보드">
+            <div class="status-column todo" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'todo')">
+              <div class="status-header">
+                <h3>시작전</h3>
+                <span class="status-count" id="countTodo">0</span>
+              </div>
+              <div class="task-list" id="taskListTodo"></div>
+            </div>
+
+            <div class="status-column doing" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'doing')">
+              <div class="status-header">
+                <h3>진행중</h3>
+                <span class="status-count" id="countDoing">0</span>
+              </div>
+              <div class="task-list" id="taskListDoing"></div>
+            </div>
+
+            <div class="status-column done" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event, 'done')">
+              <div class="status-header">
+                <h3>완료</h3>
+                <span class="status-count" id="countDone">0</span>
+              </div>
+              <div class="task-list" id="taskListDone"></div>
+            </div>
+          </section>
+
+          <!-- 달력 -->
+          <section class="card calendar-card">
+            <div class="calendar-header">
+              <button class="btn-secondary compact" onclick="moveCalendarMonth(-1)">‹ 이전달</button>
+              <h3 id="calendarMonthTitle">달력</h3>
+              <button class="btn-secondary compact" onclick="moveCalendarMonth(1)">다음달 ›</button>
+            </div>
+            <div class="calendar-weekdays">
+              <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+            <p class="calendar-help">점이 있는 날짜는 할일이 등록된 날이에요. 날짜를 누르면 해당 날짜의 할일로 이동합니다.</p>
+          </section>
+
+        </div>
+      </div>
+
+      <!-- 설정 페이지 -->
+      <div id="settingsPage" class="page">
+        <div class="page-header">
+          <h2>⚙️ 설정</h2>
+          <p>앱 설정을 관리하세요</p>
+        </div>
+
+        <!-- 설정 탭 -->
+        <div class="settings-tabs">
+          <button class="settings-tab active" onclick="showSettingsSection('profile', this)">👤 프로필</button>
+          <button class="settings-tab" onclick="showSettingsSection('design', this)">🎨 디자인</button>
+          <button class="settings-tab" onclick="showSettingsSection('data', this)">📦 데이터</button>
+        </div>
+
+        <!-- 프로필 섹션 -->
+        <div id="settingsSectionProfile" class="settings-section active">
+          <div class="card">
+            <h3>👤 프로필 설정</h3>
+
+            <!-- 프로필 사진 -->
+            <div class="form-row" style="text-align: center; margin-bottom: 20px;">
+              <div id="profilePhotoPreview" onclick="document.getElementById('profilePhotoInput').click()"
+                style="width: 80px; height: 80px; border-radius: 50%; background: var(--primary-light); border: 2px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-size: 40px; cursor: pointer; margin: 0 auto 8px; overflow: hidden;">
+                👤
+              </div>
+              <input type="file" id="profilePhotoInput" accept="image/*" style="display: none;" onchange="handleProfilePhoto(event)">
+              <p style="font-size: 12px; color: var(--text-tertiary);">클릭하여 프로필 사진 변경</p>
+            </div>
+
+            <!-- 이름 -->
+            <div class="form-row">
+              <label class="form-label">이름</label>
+              <input class="input-field" id="profileNameInput" type="text" placeholder="이름을 입력하세요">
+            </div>
+
+            <!-- 한마디 -->
+            <div class="form-row">
+              <label class="form-label">한마디</label>
+              <input class="input-field" id="profileQuoteInput" type="text" placeholder="뭐든지 할 수 있어!">
+            </div>
+
+            <button class="btn-primary" onclick="saveProfile()">저장</button>
+          </div>
+        </div>
+
+        <!-- 디자인 섹션 -->
+        <div id="settingsSectionDesign" class="settings-section">
+          <div class="card">
+            <h3>🎨 디자인 설정</h3>
+
+            <div class="form-row">
+              <label class="form-label">메인 포인트 색상</label>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <input type="color" id="colorPrimary" value="#4f8ef7"
+                  oninput="document.documentElement.style.setProperty('--primary', this.value); document.documentElement.style.setProperty('--primary-light', this.value + '22');"
+                  style="width: 40px; height: 32px; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; padding: 2px;">
+                <span id="colorPrimaryValue" style="font-size: 13px; color: var(--text-secondary); font-family: monospace;">#4f8ef7</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label class="form-label">사이드바 배경 색상</label>
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <input type="color" id="colorSidebar" value="#ffffff"
+                  oninput="document.documentElement.style.setProperty('--bg-sidebar', this.value);"
+                  style="width: 40px; height: 32px; border: 1px solid var(--border-color); border-radius: 6px; cursor: pointer; padding: 2px;">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <label class="form-label">기본 폰트</label>
+              <select class="input-field" id="fontFamily"
+                onchange="document.documentElement.style.setProperty('--font-main', this.value);"
+                style="width: auto;">
+                <option value="'Noto Sans KR', sans-serif">Noto Sans KR (기본)</option>
+                <option value="'Malgun Gothic', sans-serif">맑은 고딕</option>
+                <option value="-apple-system, BlinkMacSystemFont, sans-serif">시스템 기본</option>
+              </select>
+            </div>
+
+            <button class="btn-primary" onclick="saveDesign()">저장</button>
+            <button class="btn-secondary" style="margin-left: 8px;" onclick="resetDesign()">기본값으로</button>
+          </div>
+        </div>
+
+        <!-- 데이터 섹션 -->
+        <div id="settingsSectionData" class="settings-section">
+          <div class="card">
+            <h3>📦 데이터 관리</h3>
+            <p style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">
+              앱에 저장된 모든 데이터를 초기화합니다. 이 작업은 되돌릴 수 없어요.
+            </p>
+            <button class="btn-danger" onclick="clearAllData()">🗑 모든 데이터 초기화</button>
+          </div>
+        </div>
+
+      </div>
+      <!-- /설정 페이지 -->
+
+    </main>
+  </div>
+
+  <!-- 확인 모달 -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-box">
+      <h3 id="modalTitle">확인</h3>
+      <p id="modalMessage" style="color: var(--text-secondary);"></p>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeModal()">취소</button>
+        <button class="btn-primary" id="modalConfirmBtn">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 -->
+  <div id="toast"></div>
+
+  <script>
+    // =====================================================
+    // 유틸리티 함수
+    // =====================================================
+
+    function showToast(message, duration = 2000) {
+      const t = document.getElementById('toast');
+      t.textContent = message;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), duration);
+    }
+
+    function showPage(pageId, navBtn, title) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      if (navBtn) navBtn.classList.add('active');
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('mobilePageTitle').textContent = title || '나의 앱';
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+    }
+
+    function openModal(title, message, onConfirm) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalMessage').textContent = message;
+      document.getElementById('modal').classList.add('open');
+      document.getElementById('modalConfirmBtn').onclick = () => { onConfirm(); closeModal(); };
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('open');
+    }
+
+    function showSettingsSection(key, btn) {
+      document.querySelectorAll('.settings-section').forEach(s => s.classList.remove('active'));
+      document.querySelectorAll('.settings-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('settingsSection' + key.charAt(0).toUpperCase() + key.slice(1)).classList.add('active');
+      if (btn) btn.classList.add('active');
+    }
+
+    // =====================================================
+    // 프로필
+    // =====================================================
+
+    var profileData = { name: '', quote: '', photo: '' };
+
+    function saveProfile() {
+      profileData.name  = document.getElementById('profileNameInput').value.trim();
+      profileData.quote = document.getElementById('profileQuoteInput').value.trim();
+      applyProfile();
+      showToast('✅ 프로필이 저장됐어요 (새로고침하면 초기화돼요)');
+    }
+
+    function handleProfilePhoto(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        profileData.photo = e.target.result;
+        applyProfile();
+        showToast('✅ 사진이 저장됐어요 (새로고침하면 초기화돼요)');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function applyProfile() {
+      const name  = profileData.name  || '이름을 설정하세요';
+      const quote = profileData.quote || '뭐든지 할 수 있어!';
+      const photo = profileData.photo;
+
+      document.getElementById('profileName').textContent  = name;
+      document.getElementById('profileQuote').textContent = quote;
+
+      const photoEls = [document.getElementById('profilePhoto'), document.getElementById('profilePhotoPreview')];
+      photoEls.forEach(el => {
+        if (!el) return;
+        el.innerHTML = photo ? '<img src="' + photo + '" alt="프로필">' : '👤';
+      });
+    }
+
+    // =====================================================
+    // 디자인
+    // =====================================================
+
+    function saveDesign() {
+      applyDesignValues();
+      showToast('✅ 디자인이 저장됐어요 (새로고침하면 초기화돼요)');
+    }
+
+    function applyDesignValues() {
+      const primary = document.getElementById('colorPrimary').value;
+      const sidebar = document.getElementById('colorSidebar').value;
+      const font    = document.getElementById('fontFamily').value;
+      document.documentElement.style.setProperty('--primary', primary);
+      document.documentElement.style.setProperty('--primary-light', primary + '22');
+      document.documentElement.style.setProperty('--bg-sidebar', sidebar);
+      document.documentElement.style.setProperty('--font-main', font);
+    }
+
+    function applyDesign() {
+      // localStorage 연결 전: 기본값만 적용
+    }
+
+    function resetDesign() {
+      document.documentElement.style.removeProperty('--primary');
+      document.documentElement.style.removeProperty('--primary-light');
+      document.documentElement.style.removeProperty('--bg-sidebar');
+      document.documentElement.style.removeProperty('--font-main');
+      document.getElementById('colorPrimary').value = '#4f8ef7';
+      document.getElementById('colorSidebar').value = '#ffffff';
+      document.getElementById('fontFamily').value   = "'Noto Sans KR', sans-serif";
+      showToast('↩️ 기본값으로 돌아왔어요');
+    }
+
+    // =====================================================
+    // 데이터 초기화
+    // =====================================================
+
+    function clearAllData() {
+      openModal(
+        '데이터 초기화',
+        '모든 할일 데이터가 삭제됩니다. 정말 초기화할까요?',
+        function() {
+          localStorage.removeItem(TASK_STORAGE_KEY);
+          tasks = [];
+          renderTaskList();
+          showToast('🗑 할일 데이터가 초기화됐어요');
+        }
+      );
+    }
+
+    // =====================================================
+    // 여기서부터 채워야 할 빈 함수들
+    // =====================================================
+
+    const TASK_STORAGE_KEY = 'storynut_tasks_v1';
+    const MAX_DAILY_TASKS = 3;
+
+    const TASK_STATUS = {
+      todo:  { label: '시작전', empty: '아직 시작 전인 할일이 없어요.' },
+      doing: { label: '진행중', empty: '진행중인 할일이 없어요.' },
+      done:  { label: '완료',   empty: '완료한 할일이 없어요.' }
+    };
+
+    var tasks = [];
+    var selectedDate = getTodayString();
+    var calendarYear = new Date().getFullYear();
+    var calendarMonth = new Date().getMonth();
+    var draggedTaskId = null;
+
+    function getTodayString() {
+      return formatDate(new Date());
+    }
+
+    function formatDate(date) {
+      const y = date.getFullYear();
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const d = String(date.getDate()).padStart(2, '0');
+      return y + '-' + m + '-' + d;
+    }
+
+    function parseDate(dateString) {
+      const parts = dateString.split('-').map(Number);
+      return new Date(parts[0], parts[1] - 1, parts[2]);
+    }
+
+    function getKoreanDateLabel(dateString) {
+      const date = parseDate(dateString);
+      return date.toLocaleDateString('ko-KR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long'
+      });
+    }
+
+    function escapeHTML(value) {
+      return String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    function getTasksByDate(dateString) {
+      return tasks
+        .filter(task => task.date === dateString)
+        .sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    }
+
+    function getStatusTasks(dateString, status) {
+      return getTasksByDate(dateString).filter(task => task.status === status);
+    }
+
+    function handleTaskFormSubmit(event) {
+      event.preventDefault();
+      addTask();
+    }
+
+    function addTask() {
+      const input = document.getElementById('taskInput');
+      const title = input.value.trim();
+
+      if (!title) {
+        showToast('할일 내용을 입력하세요.');
+        input.focus();
+        return;
+      }
+
+      const dailyTasks = getTasksByDate(selectedDate);
+      if (dailyTasks.length >= MAX_DAILY_TASKS) {
+        showToast('하루 할일은 최대 3개까지 추가할 수 있어요.');
+        return;
+      }
+
+      tasks.push({
+        id: Date.now(),
+        title: title,
+        date: selectedDate,
+        status: 'todo',
+        createdAt: new Date().toISOString()
+      });
+
+      input.value = '';
+      saveTasks();
+      renderTaskList();
+      showToast('할일을 추가했어요.');
+      input.focus();
+    }
+
+    function toggleTask(id) {
+      const task = tasks.find(item => item.id === Number(id));
+      if (!task) return;
+      task.status = task.status === 'done' ? 'todo' : 'done';
+      saveTasks();
+      renderTaskList();
+    }
+
+    function changeTaskStatus(id, status) {
+      if (!TASK_STATUS[status]) return;
+      const task = tasks.find(item => item.id === Number(id));
+      if (!task) return;
+      task.status = status;
+      saveTasks();
+      renderTaskList();
+      showToast('상태를 변경했어요.');
+    }
+
+    function deleteTask(id) {
+      const task = tasks.find(item => item.id === Number(id));
+      if (!task) return;
+
+      openModal(
+        '할일 삭제',
+        '“' + task.title + '” 할일을 삭제할까요?',
+        function() {
+          tasks = tasks.filter(item => item.id !== Number(id));
+          saveTasks();
+          renderTaskList();
+          showToast('할일을 삭제했어요.');
+        }
+      );
+    }
+
+    function renderTaskList() {
+      syncCalendarToSelectedDate();
+      renderSelectedDateHeader();
+      renderTaskSummary();
+      renderStatusColumn('todo', 'taskListTodo', 'countTodo');
+      renderStatusColumn('doing', 'taskListDoing', 'countDoing');
+      renderStatusColumn('done', 'taskListDone', 'countDone');
+      renderCalendar();
+    }
+
+    function renderSelectedDateHeader() {
+      const titleEl = document.getElementById('selectedDateTitle');
+      const subtitleEl = document.getElementById('selectedDateSubtitle');
+      if (!titleEl || !subtitleEl) return;
+
+      const today = getTodayString();
+      if (selectedDate === today) {
+        titleEl.textContent = '오늘';
+      } else {
+        titleEl.textContent = selectedDate;
+      }
+      subtitleEl.textContent = getKoreanDateLabel(selectedDate);
+    }
+
+    function renderTaskSummary() {
+      const dailyTasks = getTasksByDate(selectedDate);
+      const total = dailyTasks.length;
+      const doing = dailyTasks.filter(task => task.status === 'doing').length;
+      const done = dailyTasks.filter(task => task.status === 'done').length;
+      const rate = total ? Math.round((done / total) * 100) : 0;
+
+      document.getElementById('summaryTotal').textContent = total + ' / ' + MAX_DAILY_TASKS;
+      document.getElementById('summaryDoing').textContent = doing;
+      document.getElementById('summaryDone').textContent = done;
+      document.getElementById('summaryRate').textContent = rate + '%';
+
+      const limitText = document.getElementById('taskLimitText');
+      if (total >= MAX_DAILY_TASKS) {
+        limitText.textContent = '이 날짜는 할일 3개를 모두 채웠어요. 더 추가하려면 기존 할일을 삭제하세요.';
+        limitText.classList.add('warning');
+      } else {
+        limitText.textContent = '선택한 날짜에 ' + (MAX_DAILY_TASKS - total) + '개 더 추가할 수 있어요.';
+        limitText.classList.remove('warning');
+      }
+    }
+
+    function renderStatusColumn(status, listId, countId) {
+      const listEl = document.getElementById(listId);
+      const countEl = document.getElementById(countId);
+      if (!listEl || !countEl) return;
+
+      const statusTasks = getStatusTasks(selectedDate, status);
+      countEl.textContent = statusTasks.length;
+
+      if (statusTasks.length === 0) {
+        listEl.innerHTML = '<div class="empty-state">' + TASK_STATUS[status].empty + '<br>카드를 이곳으로 드래그해도 돼요.</div>';
+        return;
+      }
+
+      listEl.innerHTML = statusTasks.map(task => createTaskCardHTML(task)).join('');
+    }
+
+    function createTaskCardHTML(task) {
+      const safeTitle = escapeHTML(task.title);
+      const label = TASK_STATUS[task.status] ? TASK_STATUS[task.status].label : '시작전';
+      const doneClass = task.status === 'done' ? ' done' : '';
+
+      return '' +
+        '<div class="task-card ' + task.status + doneClass + '" draggable="true" ondragstart="handleDragStart(event, ' + task.id + ')" ondragend="handleDragEnd(event)">' +
+          '<div class="task-card-title">' + safeTitle + '</div>' +
+          '<div class="task-card-meta">' +
+            '<span class="task-badge">' + label + '</span>' +
+            '<span class="task-badge">' + selectedDate + '</span>' +
+          '</div>' +
+          '<div class="task-card-actions">' +
+            '<select class="status-select" value="' + task.status + '" onchange="changeTaskStatus(' + task.id + ', this.value)">' +
+              '<option value="todo" ' + (task.status === 'todo' ? 'selected' : '') + '>시작전</option>' +
+              '<option value="doing" ' + (task.status === 'doing' ? 'selected' : '') + '>진행중</option>' +
+              '<option value="done" ' + (task.status === 'done' ? 'selected' : '') + '>완료</option>' +
+            '</select>' +
+            '<button class="task-delete-btn" onclick="deleteTask(' + task.id + ')">삭제</button>' +
+          '</div>' +
+        '</div>';
+    }
+
+    function saveTasks() {
+      localStorage.setItem(TASK_STORAGE_KEY, JSON.stringify(tasks));
+    }
+
+    function loadTasks() {
+      const saved = localStorage.getItem(TASK_STORAGE_KEY);
+      if (!saved) {
+        tasks = [];
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(saved);
+        tasks = Array.isArray(parsed) ? parsed.filter(task => task && task.id && task.title && task.date) : [];
+        tasks = tasks.map(task => ({
+          id: Number(task.id),
+          title: String(task.title),
+          date: task.date,
+          status: TASK_STATUS[task.status] ? task.status : 'todo',
+          createdAt: task.createdAt || new Date().toISOString()
+        }));
+      } catch (error) {
+        tasks = [];
+      }
+    }
+
+    function moveSelectedDate(amount) {
+      const date = parseDate(selectedDate);
+      date.setDate(date.getDate() + amount);
+      selectedDate = formatDate(date);
+      renderTaskList();
+    }
+
+    function goToday() {
+      selectedDate = getTodayString();
+      syncCalendarToSelectedDate();
+      renderTaskList();
+    }
+
+    function selectDate(dateString) {
+      selectedDate = dateString;
+      syncCalendarToSelectedDate();
+      renderTaskList();
+    }
+
+    function syncCalendarToSelectedDate() {
+      const date = parseDate(selectedDate);
+      calendarYear = date.getFullYear();
+      calendarMonth = date.getMonth();
+    }
+
+    function moveCalendarMonth(amount) {
+      const date = new Date(calendarYear, calendarMonth + amount, 1);
+      calendarYear = date.getFullYear();
+      calendarMonth = date.getMonth();
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const grid = document.getElementById('calendarGrid');
+      const title = document.getElementById('calendarMonthTitle');
+      if (!grid || !title) return;
+
+      title.textContent = calendarYear + '년 ' + (calendarMonth + 1) + '월';
+
+      const firstDay = new Date(calendarYear, calendarMonth, 1).getDay();
+      const daysInMonth = new Date(calendarYear, calendarMonth + 1, 0).getDate();
+      const today = getTodayString();
+      let html = '';
+
+      for (let i = 0; i < firstDay; i++) {
+        html += '<div class="calendar-blank"></div>';
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateString = formatDate(new Date(calendarYear, calendarMonth, day));
+        const count = getTasksByDate(dateString).length;
+        const classes = [
+          'calendar-day',
+          dateString === today ? 'today' : '',
+          dateString === selectedDate ? 'selected' : '',
+          count > 0 ? 'has-tasks' : ''
+        ].filter(Boolean).join(' ');
+
+        html += '<button class="' + classes + '" onclick="selectDate(\'' + dateString + '\')">' +
+          '<span>' + day + '</span>' +
+          (count > 0 ? '<span class="calendar-dot"></span><span class="calendar-count">' + count + '</span>' : '') +
+        '</button>';
+      }
+
+      grid.innerHTML = html;
+    }
+
+    function handleDragStart(event, id) {
+      draggedTaskId = Number(id);
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('text/plain', String(id));
+      setTimeout(function() {
+        event.target.classList.add('dragging');
+      }, 0);
+    }
+
+    function handleDragEnd(event) {
+      event.target.classList.remove('dragging');
+      document.querySelectorAll('.status-column').forEach(column => column.classList.remove('drag-over'));
+      draggedTaskId = null;
+    }
+
+    function handleDragOver(event) {
+      event.preventDefault();
+      event.currentTarget.classList.add('drag-over');
+    }
+
+    function handleDragLeave(event) {
+      if (!event.currentTarget.contains(event.relatedTarget)) {
+        event.currentTarget.classList.remove('drag-over');
+      }
+    }
+
+    function handleDrop(event, status) {
+      event.preventDefault();
+      event.currentTarget.classList.remove('drag-over');
+
+      const rawId = event.dataTransfer.getData('text/plain') || draggedTaskId;
+      const id = Number(rawId);
+      const task = tasks.find(item => item.id === id);
+      if (!task || !TASK_STATUS[status]) return;
+
+      task.status = status;
+      saveTasks();
+      renderTaskList();
+      showToast('카드를 ' + TASK_STATUS[status].label + '으로 옮겼어요.');
+    }
+
+    // =====================================================
+    // 초기화
+    // =====================================================
+
+    window.addEventListener('load', function() {
+      applyProfile();
+      applyDesign();
+      loadTasks();
+      renderTaskList();
+    });
+  </script>
+</body>
+</html>
